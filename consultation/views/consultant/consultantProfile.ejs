@@ -1,0 +1,123 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Header Start -->
+<div class="container-fluid bg-black py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Consultant Profile</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Consultant</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<style>
+    .profile-container {
+        margin-top: 50px;
+    }
+    .profile-header {
+        margin-bottom: 30px;
+    }
+    .profile-picture {
+        background-size: cover;
+        min-height: 400px;
+    }
+    .profile-info {
+        margin-bottom: 30px;
+    }
+    .rating span {
+        color: gold;
+        font-size: 1.5em;
+    }
+    a {
+        color: black;
+    }
+    a:hover {
+        color: blue;
+    }
+</style>
+
+<div class="container profile-container">
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <div class="profile-header">
+                <img src="<%= consultant.profilePicture %>" alt="Profile Picture" class="profile-picture img-fluid">
+                <h1 class="h3"><%= consultant.firstname %> <%= consultant.lastname %></h1>
+                <p class="text-muted"><%= consultant.user.email %></p>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th scope="row">Specialization</th>
+                        <td>
+                            <ul class="list-unstyled">
+                                <% consultant.specializations.forEach(function(specialty) { %>
+                                    <li><%= specialty %></li>
+                                <% }); %>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Experience</th>
+                        <td><%= consultant.experience %> years</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Bio</th>
+                        <td><%= consultant.bio %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Certifications</th>
+                        <td>
+                            <ul class="list-unstyled">
+                                <% consultant.certifications.forEach(function(certification) { %>
+                                    <li><%= certification %></li>
+                                <% }); %>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">LinkedIn Profile</th>
+                        <td>
+                            <ul class="list-unstyled">
+                                <% consultant.websites.forEach(function(website) { %>
+                                    <a href="<%= website %>"><li><%= website %></li></a>
+                                <% }); %>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Availability</th>
+                        <td><%= consultant.availability ? 'Available' : 'Not Available' %></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Rating</th>
+                        <td class="rating">
+                            <% for (let i = 0; i < 5; i++) { %>
+                                <% if (i < consultant.rating) { %>
+                                    <span>&#9733;</span>
+                                <% } else { %>
+                                    <span>&#9734;</span>
+                                <% } %>
+                            <% } %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <% if (currentUser && currentUser._id.equals(consultant.user._id)) { %>
+                <a href="/consultant/<%= consultant._id %>/edit" class="btn btn-warning">Edit</a>
+                <form action="/consultant/<%= consultant._id %>?_method=DELETE" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            <% } %>
+        </div>
+    </div>
+</div>

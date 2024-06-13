@@ -1,0 +1,67 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Header Start -->
+<div class="container-fluid bg-black py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Clients List</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Clients List</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- List Clients Section Start -->
+<section id="list-clients" class="list-clients">
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-lg-12" data-aos="fade-right" data-aos-delay="100">
+                <h3>Client Profiles</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Profile Picture</th>
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Job Title</th>
+                            <th>Phone Number</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% clients.forEach(client => { %>
+                        <tr>
+                            <td>
+                                <% if (client.profilePicture) { %>
+                                    <img src="<%= client.profilePicture %>" alt="<%= client.firstname %> <%= client.lastname %>" style="width: 50px; height: 50px; border-radius: 50%;">
+                                <% } else { %>
+                                    <img src="/path/to/default/profile/picture.jpg" alt="Default Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+                                <% } %>
+                            </td>
+                            <td><%= client.firstname %> <%= client.lastname %></td>
+                            <td><%= client.company %></td>
+                            <td><%= client.jobTitle %></td>
+                            <td><%= client.phoneNumber %></td>
+                            <td>
+                                <a href="/client/<%= client._id %>" class="btn btn-info btn-sm">View</a>
+                                <a href="/client/<%= client._id %>/edit" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="/client/<%= client._id %>?_method=DELETE" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- List Clients Section End -->

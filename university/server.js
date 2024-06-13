@@ -16,7 +16,7 @@ const nodemailer = require('nodemailer');
 const methodOverride = require('method-override')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
-const helmet = require('helmet')
+//const helmet = require('helmet')
 
 const User = require('./models/userModel')
 const dbUrl = process.env.DB_URL

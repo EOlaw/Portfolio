@@ -1,0 +1,65 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Header Start -->
+<div class="container-fluid bg-black py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Create Consultant</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Consultant</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- Create Consultant Section Start -->
+<section id="create-consultant" class="create-consultant">
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2" data-aos="fade-right" data-aos-delay="100">
+                <h3>Create Consultant Profile</h3>
+                <form action="/consultant" method="POST">
+                    <div class="mb-3">
+                        <label for="userId" class="form-label">User ID</label>
+                        <input type="text" class="form-control" id="userId" name="userId" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="specialization" class="form-label">Specialization</label>
+                        <input type="text" class="form-control" id="specialization" name="specialization" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="experienceYears" class="form-label">Years of Experience</label>
+                        <input type="number" class="form-control" id="experienceYears" name="experienceYears" min="0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="bio" class="form-label">Bio</label>
+                        <textarea class="form-control" id="bio" name="bio"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="certifications" class="form-label">Certifications</label>
+                        <input type="text" class="form-control" id="certifications" name="certifications">
+                    </div>
+                    <div class="mb-3">
+                        <label for="linkedInProfile" class="form-label">LinkedIn Profile</label>
+                        <input type="text" class="form-control" id="linkedInProfile" name="linkedInProfile">
+                    </div>
+                    <div class="mb-3">
+                        <label for="availability" class="form-label">Availability</label>
+                        <select class="form-control" id="availability" name="availability">
+                            <option value="true">Available</option>
+                            <option value="false">Not Available</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Consultant</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Create Consultant Section End -->
