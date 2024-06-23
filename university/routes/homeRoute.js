@@ -1,0 +1,20 @@
+const express = require('express');
+const router = express.Router()
+const homeControllers = require('../controllers/homeController')
+const { isAuthenticated, isAdmin } = require('../controllers/authController')
+
+router.route('/')
+    .get(homeControllers.homepage)
+router.route('/about')
+    .get(homeControllers.about)
+router.route('/contact')
+    .get(homeControllers.contact)
+router.route('/resources')
+    .get(homeControllers.resources)
+router.route('/faqs')
+    .get(homeControllers.faqs)
+router.route('/privacy')
+    .get(homeControllers.privacy)
+router.route('/term-condition')
+    .get(homeControllers.terms)
+module.exports = router

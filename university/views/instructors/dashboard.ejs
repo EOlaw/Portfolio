@@ -1,0 +1,74 @@
+<% layout('layouts/boilerplate') %>
+
+<% function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+} %> 
+
+<header class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <h1 class="display-3 text-white text-center">Instructor Dashboard</h1>
+    </div>
+</header>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>Welcome <%= capitalizeFirstLetter(user.firstname) %> <%= capitalizeFirstLetter(user.lastname) %>!</h1>
+            <h2>Your Courses</h2>
+            <% if (courses.length > 0) { %>
+                <% courses.forEach(course => { %>
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <a href="/admin/course/<%= course._id %>"><%= course.courseName %></a>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Enrolled Students</h5>
+                            <% if (course.students && course.students.length > 0) { %>
+                                <ul class="list-group">
+                                    <% course.students.forEach(student => { %>
+                                        <li class="list-group-item"><%= student.firstname %> <%= student.lastname %> (<%= student.email %>)</li>
+                                    <% }); %>
+                                </ul>
+                            <% } else { %>
+                                <p>No students enrolled in this course yet.</p>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>You are not currently teaching any courses.</p>
+            <% } %>
+        </div>
+        <div class="col-md-4">
+            <aside>
+                <h3>Useful Information for Instructors</h3>
+                <ul>
+                    <li><a href="/course-materials">Course Materials</a>: View and manage course materials.</li>
+                    <li><a href="/course-syllabus">Course Syllabus</a>: Access and update course syllabus.</li>
+                    <li><a href="/grade-criteria">Grade Criteria</a>: Set grading criteria for courses.</li>
+                    <li><a href="/discounts">Discounts</a>: Manage discounts for course enrollment.</li>
+                    <li><a href="/payment-plans">Payment Plans</a>: Set up payment plans for students.</li>
+                    <li><a href="/refund-policy">Refund Policy</a>: Review the course refund policy.</li>
+                    <li><strong>Schedules:</strong>
+                        <ul>
+                            <% courses.forEach(course => { %>
+                                <strong><%= course.courseName %></strong>
+                                <% course.schedules.forEach(schedule => { %>
+                                    <li><%= schedule.semester %>: <%= schedule.startDate %> to <%= schedule.endDate %></li>
+                                    <ul>
+                                        <% schedule.sessions.forEach(session => { %>
+                                            <li><%= session.day %>: <%= session.time %></li>
+                                        <% }); %>
+                                    </ul>
+                                <% }); %>
+                            <% }); %>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+</div>
+
+
+

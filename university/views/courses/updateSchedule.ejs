@@ -1,0 +1,11 @@
+<% layout('layouts/boilerplate')%>
+    <h1>Update Schedule for <%= course.courseName %></h1>
+    <form action="/courses/<%= course._id %>/schedule/<%= schedule._id %>/update" method="POST">
+        <label for="semester">Semester:</label>
+        <input type="text" id="semester" name="semester" value="<%= schedule.semester %>" required><br>
+
+        <!-- Add other fields for schedule pre-filled with current values here -->
+
+        <button type="submit">Update Schedule</button>
+    </form>
+

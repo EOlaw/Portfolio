@@ -29,14 +29,14 @@ const userControllers = {
         } catch (err) {
             req.flash('error', err.message);
             console.log(err);
-            res.redirect('/user/register')
+            res.redirect('/consultation/user/register')
         }
     },
     // Login Page
     renderLogin: (req, res) => {
         try {
             const user = req.user;
-            if (user) return res.redirect('/user/login');
+            if (user) return res.redirect('/consultation/user/login');
             return res.status(200).render('user/login')
         } catch (err) {
             res.status(500).json(err)
@@ -53,20 +53,20 @@ const userControllers = {
                 const consultant = await Consultant.findOne({ user: user._id });
                 if (consultant) {
                     //req.flash('success', 'Welcome back, Consultant!');
-                    return res.redirect(`/consultant/${consultant._id}`);
+                    return res.redirect(`/consultation/consultant/${consultant._id}`);
                 }
             } else if (user.role === 'client') {
                 // Find the client associated with this user
                 const client = await Client.findOne({ user: user._id });
                 if (client) {
                     //req.flash('success', 'Welcome back, Client!');
-                    return res.redirect('/client');
+                    return res.redirect('/consultation/client');
                 }
             }
         } catch (err) {
             console.error(err);
             req.flash('error', 'Something went wrong. Please try again.');
-            res.redirect('/user/login');
+            res.redirect('/consultation/user/login');
         }
     },
 
@@ -75,7 +75,7 @@ const userControllers = {
         req.logout(err => {
             if (err) return next(err);
             //req.flash('success_msg', 'You are logged out');
-            res.redirect('/user/login');
+            res.redirect('/consultation/user/login');
         });
     },
 
@@ -86,9 +86,9 @@ const userControllers = {
         const client = await Client.findOne({ user: user._id });
         const role = req.user.role;
         if (role === 'client') {
-            res.redirect(`/client/${client._id}`);
+            res.redirect(`/consultation/client/${client._id}`);
         } else if (role === 'consultant') {
-            res.redirect(`/consultant/${consultant._id}`);
+            res.redirect(`/consultation/consultant/${consultant._id}`);
         } else {
             res.redirect('/');
         }
@@ -109,7 +109,7 @@ const userControllers = {
         try {
             await User.findByIdAndDelete(req.params.id);
             req.flash('success_msg', 'User deleted successfully');
-            res.redirect('/user/list');
+            res.redirect('/consultation/user/list');
         } catch (err) {
             res.status(500).send(err);
         }

@@ -1,0 +1,269 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+     ul {
+        list-style-type: none;
+        padding: 0; /* Optionally, remove default padding */
+        margin: 0; /* Optionally, remove default margin */
+    }
+    .hide {
+        display: none;
+    }
+
+    .show {
+        display: block;
+    }
+</style>
+
+<% function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+} %>
+
+<section class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <!-- Move the filter section to the left side -->
+            <aside class="col-md-3 p-0">
+                <h2>Filter by Tags</h2>
+                <ul>
+                    <% courseTags.forEach(tag => { %>
+                        <li>
+                            <!-- Call the filterCourses function with the selected tag -->
+                            <a href="javascript:void(0)" onclick="filterCourses('<%= tag %>')"><%= tag %></a> <hr>
+                        </li>
+                    <% }) %>
+                </ul>
+            </aside>
+
+            <!-- Move the course cards section to the right side -->
+            <div class="col-md-9">
+                <div class="container-xxl py-5">
+                    <div class="container">
+                        <div class="text-center">
+                            <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
+                            <h1 class="mb-5">Popular Courses</h1>
+                        </div>
+                        <div class="row g-4 justify-content-center">
+                            <!-- Display courses -->
+                            <% if (courses.length > 0) { %> 
+                                <% courses.forEach((course, index) => { %>
+                                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="<%= index * 0.005 %>s">
+                                        <div class="course-item bg-light" data-tags="<%= course.tags.join(',') %>">
+                                            <div class="position-relative overflow-hidden">
+                                                <% if (course.images.length > 0) { %>
+                                                    <a href="/admin/course/<%= course._id %>"><img class="img-fluid" src="<%= course.images[0].url %>" alt="<%= course.courseName %> Image"></a>
+                                                <% } else { %>
+                                                    <a href="/admin/course/<%= course._id %>"><img class="img-fluid" src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" alt="Course Image"></a>
+                                                <% } %>
+                                            </div>
+                                            <div class="text-center p-4 pb-0">
+                                                <h3 class="mb-0">$<%= course.price %></h3>
+                                                <div class="mb-3">
+                                                    <!-- Display custom star icons based on the rating -->
+                                                    <div class="star-rating" data-rating="<%= course.rating %>">
+                                                        <% for (let i = 1; i <= 5; i++) { %>
+                                                            <% if (i <= course.rating) { %>
+                                                                <input type="radio" id="star<%= i %>-<%= index %>" name="rating" value="<%= i %>" style="display: none;"> 
+                                                                <label for="star<%= i %>-<%= index %>" title="<%= i %> star" class="star">&#9734;</label> 
+                                                            <% } else { %>
+                                                                <input type="radio" id="star<%= i %>-<%= index %>" name="rating" value="<%= i %>" style="display: none;" checked> 
+                                                                <label for="star<%= i %>-<%= index %>" title="<%= i %> star" class="star">&#9733;</label>
+                                                            <% } %>
+                                                        <% } %> 
+                                                        <small>(<%= course.ratings.length %>)</small>
+                                                    </div>
+                                                </div>
+                                                <a href="/admin/course/<%= course._id %>"><h5 class="mb-4"><%= course.courseName %></h5></a>
+                                            </div>
+                                            <div class="d-flex border-top">
+                                                <% if (course.instructors && course.instructors.length > 0) { %>
+                                                    <small class="flex-fill text-center border-end py-2">
+                                                        <i class="fa fa-user-tie text-primary me-2"></i>
+                                                        <%= capitalizeFirstLetter(course.instructors[0].firstname) %> <%= capitalizeFirstLetter(course.instructors[0].lastname) %>
+                                                    </small>
+                                                <% } else { %>
+                                                    <small class="flex-fill text-center border-end py-2">
+                                                        <i class="fa fa-user-tie text-primary me-2"></i>
+                                                    </small>
+                                                <% } %>
+                                                <small class="flex-fill text-center border-end py-2">
+                                                    <i class="fa fa-clock text-primary me-2"></i>
+                                                    <%= course.duration %>
+                                                </small>
+                                                <small class="flex-fill text-center py-2">
+                                                    <i class="fa fa-user text-primary me-2"></i>
+                                                    <%= course.students.length %>
+                                                </small>
+                                            </div>
+                                                                                        
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            <% } else { %>
+                                <div class="col-md-12">
+                                    <p>No courses found.</p>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<script>
+    function filterCourses(tag) {
+        var cards = document.querySelectorAll('.course-item');
+
+        cards.forEach(function(card) {
+            var tags = card.getAttribute('data-tags').split(',');
+            if (tag === 'all' || tags.includes(tag)) {
+                // Show the course item
+                card.parentElement.style.display = 'block';
+            } else {
+                // Hide the course item
+                card.parentElement.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+
+<!---
+<style>
+    /* Remove underline from anchor tags
+    a {
+        color: black;
+        text-decoration: none;
+    }
+    .card {
+        border: 1px solid #e3e3e3;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+    
+    .course-image {
+        width: 100%;
+        max-height: 222px;
+        object-fit: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+   .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .card-title a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .card-text {
+        font-size: 20px;
+        margin-bottom: 5px;
+        overflow: hidden;
+    }
+
+    /* Remove bullet points from list items 
+    ul {
+        list-style-type: none;
+        padding: 0; /* Optionally, remove default padding 
+        margin: 0; /* Optionally, remove default margin 
+    }
+    /* Media query for iPhone screen sizes 
+    @media only screen and (max-width: 576px) {
+        /* Adjust styles for iPhone screen sizes 
+        .card-title {
+            font-size: 16px;
+        }
+        .card-text {
+            font-size: 12px;
+        }
+    }
+
+    /* Media query for iPad screen sizes 
+    @media only screen and (min-width: 577px) and (max-width: 1024px) {
+        /* Adjust styles for iPad screen sizes 
+        .card-title {
+            font-size: 20px;
+        }
+        .card-text {
+            font-size: 14px;
+        }
+        
+        .course-card {
+            width: calc(33.333% - 20px); /* Adjust the width to fit three cards with margins 
+            margin-right: 20px; /* Add margin between cards 
+        }
+
+        .course-card:nth-child(3n) {
+            margin-right: 0; /* Remove margin for the last card in each row 
+        }
+    }
+
+    /* Media query for MacBook screen sizes 
+    @media only screen and (min-width: 1025px) {
+        /* Adjust styles for MacBook screen sizes 
+        .card-title {
+            font-size: 22px;
+        }
+        .card-text {
+            font-size: 16px;
+        }
+    }
+</style>
+-->
+
+
+<!-- Display courses
+            <div class="col-md-9">
+                <% if (courses.length > 0) { %> 
+                    <div class="row">
+                        <% courses.forEach((course => { %> 
+                            <div class="col-md-3 mb-4 course-card" data-tags="<%= course.tags.join(',') %>">
+                                <div class="card">
+                                    <% if (course.images.length > 0) { %> 
+                                        <img src="<%= course.images[0].url %>" alt="<%= course.courseName %> Image" class="card-img-top course-image">
+                                    <% } else { %>
+                                        <img src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" class="card-img-top course-image" alt="Course Image">
+                                    <% } %>
+                                    <div class="card-body">
+                                        <a href="/admin/course/<%= course._id %>"><h5 class="card-title"><%= course.courseName %></h5></a>
+                                        <p class="card-text"><%= course.description %></p>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        <% })) %>
+                    </div>
+                <% } else { %>
+                    <p>No courses found.</p>
+                <% } %>
+            </div>
+            -->
+
+
+
+
+
+

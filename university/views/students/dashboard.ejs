@@ -1,0 +1,50 @@
+<% layout('layouts/boilerplate') %>
+
+<header class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <h1 class="display-3 text-white text-center">Student Dashboard</h1>
+    </div>
+</header>
+
+<main class="container-xxl py-5">
+    <div class="row">
+        <section id="student-information" class="col-lg-6 mb-5">
+            <h2 class="section-title bg-white text-center text-primary px-3 mb-4">Student Information</h2>
+            <div class="container">
+                <% if (user) { %>
+                    <div class="student-info">
+                        <p><span class="fw-bold">Name:</span> <%= user.firstname %> <%= user.lastname %></p>
+                        <p><span class="fw-bold">Email:</span> <%= user.email %></p>
+                        <p><span class="fw-bold">Mobile:</span> <%= user.mobile %></p>
+                        <p><span class="fw-bold">Role:</span> <%= user.role %></p>
+                        <% if (user.enrolledCourses && user.enrolledCourses.length > 0) { %>
+                            <h3 class="text-primary mt-4">Enrolled Courses</h3>
+                            <ul class="list-group">
+                                <% user.enrolledCourses.forEach(course => { %>
+                                    <li class="list-group-item">
+                                        <h4><%= course.courseName %> - <%= course.courseCode %></h4>
+                                        <p><%= course.description %></p>
+                                        <!-- Add a button/link to remove the course -->
+                                        <form action="/user/students/<%= user._id %>/course/<%= course._id %>/remove" method="POST">
+                                            <button type="submit" class="btn btn-danger">Remove Course</button>
+                                        </form>
+                                        <% /* Add other relevant information about the course */ %>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        <% } else { %>
+                            <p>No enrolled courses found.</p>
+                        <% } %>
+                        
+                    </div>
+                <% } else { %>
+                    <p class="text-center">No user logged in.</p>
+                <% } %>
+            </div>
+        </section>
+        <aside id="additional-information" class="col-lg-6">
+            <h2 class="section-title bg-white text-center text-primary px-3 mb-4">Additional Information</h2>
+            <p>This is where you can add more information about the student portal, such as instructions, announcements, or helpful resources.</p>
+        </aside>
+    </div>
+</main>

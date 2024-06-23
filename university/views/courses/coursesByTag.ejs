@@ -1,0 +1,47 @@
+<% layout('layouts/boilerplate') %>
+
+<section class="container">
+    <div class="container">
+        <h1 class="my-4">Courses</h1>
+        <hr>
+
+        <!-- Display course tags -->
+        <div class="row">
+            <% courseTags.forEach(tag => { %>
+                <div class="col-md-3 mb-4">
+                    <a href="/courses/tag/<%= tag %>">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= tag %></h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <% }) %>
+        </div>
+
+        <!-- Display filtered courses based on selected tag -->
+        <% if (filteredCourses.length > 0) { %> 
+            <div class="row">
+                <% filteredCourses.forEach(course => { %> 
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            <% if (course.images.length > 0) { %> 
+                                <img src="<%= course.images[0].url %>" alt="<%= course.courseName %> Image" class="card-img-top course-image">
+                            <% } else { %>
+                                <img src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" class="card-img-top product-image" alt="Product Image">
+                            <% } %>
+                            <div class="card-body">
+                                <h5 class="card-title"><%= course.courseName %></h5>
+                                <p class="card-text"><%= course.description %></p>
+                                <!-- Add other course details here if needed -->
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p>No courses found.</p>
+        <% } %>
+    </div>
+</section>

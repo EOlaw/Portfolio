@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telecom Churn Analysis</title>
+</head>
+<body>
+    <!-- Display EDA results -->
+    <h2>Stats Summary</h2>
+    <%- data.stats_summary %>
+
+    <h2>Correlation Matrix</h2>
+    <img src="data:image/png;base64, <%= data.correlation_matrix %>" alt="Correlation Matrix">
+
+    <h2>Churn Distribution</h2>
+    <img src="data:image/png;base64, <%= data.churn_distribution %>" alt="Churn Distribution">
+
+    <h2>Pairplot</h2>
+    <img src="data:image/png;base64, <%= data.pairplot %>" alt="Pairplot">
+</body>
+</html>
+

@@ -1,0 +1,15 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+    <h1>Checkout</h1>
+    <h3>Summary:</h3>
+    <ul>
+        <% cart.courses.forEach(course => { %>
+            <li><%= course.courseName %> - $<%= course.price %></li>
+        <% }); %>
+    </ul>
+    <p>Total Price: $<%= totalPrice %></p>
+    <form action="/cart/proceed-to-checkout/<%= currentUser._id %>" method="POST">
+        <button type="submit" class="btn btn-primary">Confirm Purchase</button>
+    </form>
+</div>

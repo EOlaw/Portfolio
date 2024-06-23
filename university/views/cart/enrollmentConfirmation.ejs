@@ -1,0 +1,12 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+    <h1>Enrollment Confirmation</h1>
+    <p>Congratulations! You have successfully enrolled in the following courses:</p>
+    <ul>
+        <% enrolledCourses.forEach(course => { %>
+            <li><%= course.courseName %></li>
+        <% }); %>
+    </ul>
+    <a href="/user/enrolled-courses/<%= currentUser._id %>" class="btn btn-primary">View Enrolled Courses</a>
+</div>

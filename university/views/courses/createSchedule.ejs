@@ -1,0 +1,14 @@
+<% layout('layouts/boilerplate')%>
+    <h1>Create Schedule for <%= course.courseName %></h1>
+    <form action="/courses/<%= course._id %>/schedule/create" method="POST">
+        <label for="semester">Semester:</label>
+        <input type="text" id="semester" name="semester" required><br>
+
+        <!-- Add other fields for schedule here -->
+
+        <button type="submit">Create Schedule</button>
+    </form>
+
+
+
+

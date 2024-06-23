@@ -1,0 +1,57 @@
+<% layout('layouts/boilerplate') %>
+<h1>Edit Course</h1>
+<form action="/admin/course/<%= course._id %>/update?_method=PUT" method="POST">
+    <label for="courseCode">Course Code:</label>
+    <input type="text" id="courseCode" name="courseCode" value="<%= course.courseCode %>" required><br>
+
+    <label for="courseName">Course Name:</label>
+    <input type="text" id="courseName" name="courseName" value="<%= course.courseName %>" required><br>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description"><%= course.description %></textarea><br>
+
+    <label for="prerequisites">Prerequisites:</label>
+    <input type="text" id="prerequisites" name="prerequisites" value="<%= course.prerequisites.join(', ') %>"><br>
+
+    <label for="duration">Duration:</label>
+    <input type="text" id="duration" name="duration" value="<%= course.duration %>"><br>
+
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" value="<%= course.location %>"><br>
+
+    <label for="tags">Tags:</label>
+    <input type="text" id="tags" name="tags" value="<%= course.tags.join(', ') %>"><br>
+
+    <label for="enrollmentLimit">Enrollment Limit:</label>
+    <input type="number" id="enrollmentLimit" name="enrollmentLimit" value="<%= course.enrollmentLimit %>"><br>
+
+    <label for="availability">Availability:</label>
+    <select id="availability" name="availability">
+        <option value="Active" <%= course.availability === 'Active' ? 'selected' : '' %>>Active</option>
+        <option value="Inactive" <%= course.availability === 'Inactive' ? 'selected' : '' %>>Inactive</option>
+        <option value="Upcoming" <%= course.availability === 'Upcoming' ? 'selected' : '' %>>Upcoming</option>
+    </select><br>
+
+    <label for="paymentPlans">Payment Plans:</label>
+    <input type="text" id="paymentPlans" name="paymentPlans" value="<%= course.paymentPlans.map(plan => `${plan.installmentAmount} ${plan.frequency}`).join(', ') %>"><br>
+
+    <label for="materials">Materials:</label>
+    <textarea id="materials" name="materials"><% course.materials.forEach(material => { %> <%= material.title %>: <%= material.url %> <% }) %></textarea><br>
+
+    <label for="certification">Certification:</label>
+    <input type="text" id="certification" name="certification" value="<%= course.certification %>"><br>
+
+    <label for="level">Level:</label>
+    <input type="text" id="level" name="level" value="<%= course.level %>"><br>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" value="<%= course.price %>"><br>
+
+    <label for="refundPolicy">Refund Policy:</label>
+    <textarea id="refundPolicy" name="refundPolicy"><%= course.refundPolicy %></textarea><br>
+
+    <label for="instructors">Instructors:</label>
+    <input type="text" id="instructors" name="instructors" value="<%= course.instructors.join(', ') %>"><br>
+
+    <button type="submit">Update Course</button>
+</form>

@@ -1,0 +1,21 @@
+{
+  "name": "telecom-churn-analysis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.10",
+    "ejs-mate": "^4.0.0",
+    "express": "^4.19.2",
+    "method-override": "^3.0.0",
+    "nodemon": "^3.1.4",
+    "python-shell": "^5.0.0"
+  }
+}

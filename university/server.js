@@ -16,7 +16,7 @@ const nodemailer = require('nodemailer');
 const methodOverride = require('method-override')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
-//const helmet = require('helmet')
+const helmet = require('helmet')
 
 const User = require('./models/userModel')
 const dbUrl = process.env.DB_URL
@@ -87,7 +87,7 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/homepage', homeRoutes)
+app.use('/', homeRoutes)
 app.use('/user', userRoutes)
 app.use('/admin', adminRoutes)
 //app.use('/cart', cartRoutes)
@@ -138,11 +138,4 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err })
 })
 
-
-
-// Server
-const port = process.env.PORT || 4500;
-// Start the server
-app.listen(port, () => {
-  console.log(`Server started on ${port}`);
-});
+module.exports = app;

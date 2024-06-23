@@ -87,5 +87,4 @@ app.use('/user', userRoutes);
 app.use('/client', clientRoutes);
 app.use('/consultant', consultantRoutes);
 
-
 module.exports = app; // Correctly export the app instance

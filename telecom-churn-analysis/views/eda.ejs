@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EDA</title>
+</head>
+<body>
+    <h1>Exploratory Data Analysis</h1>
+    <h2>Statistical Summary</h2>
+    <div><%= stats_summary %></div>
+    <h2>Correlation Matrix</h2>
+    <img src="data:image/png;base64,<%= correlation_matrix %>">
+    <h2>Churn Distribution</h2>
+    <img src="data:image/png;base64,<%= churn_distribution %>">
+    <h2>Pairplot of Selected Features</h2>
+    <img src="data:image/png;base64,<%= pairplot %>">
+</body>
+</html>

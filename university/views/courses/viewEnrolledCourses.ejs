@@ -1,0 +1,54 @@
+<% layout('layouts/boilerplate') %>
+<!-- Button to go back to previous page -->
+<a href="#!" onclick="goBack()"><h5 class="mb-3"><i class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</h5></a>
+<div class="container">
+    <h1>Enrolled Courses</h1>
+    <% if (enrolledCourses && enrolledCourses.length > 0) { %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Instructors</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% enrolledCourses.forEach(course => { %>
+                    <tr>
+                        <td class="mb-4"><a href="/admin/course/<%= course._id %>"><%= course.courseName %></a></td>
+                        <td>
+                            <% if (course.instructors && course.instructors.length > 0) { %>
+                                <% course.instructors.forEach(instructor => { %>
+                                    <%= instructor.firstname %> <%= instructor.lastname %><br>
+                                <% }); %>
+                            <% } else { %>
+                                N/A
+                            <% } %>
+                        </td>
+                        <td><%= course.description %></td>
+                        <td>
+                            <form action="/user/<%= currentUser._id %>/course/<%= course._id %>/complete" method="POST">
+                                <button type="submit" class="btn btn-success">Complete Course</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No courses enrolled.</p>
+    <% } %>
+</div>
+
+<script>
+    // Function to go back to previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+
+
+
+

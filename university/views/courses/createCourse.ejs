@@ -1,0 +1,11 @@
+<% layout('layouts/boilerplate')%>
+    <h1>Create Course</h1>
+    <form action="/courses/create" method="POST">
+        <label for="courseCode">Course Code:</label>
+        <input type="text" id="courseCode" name="courseCode" required><br>
+
+        <!-- Add other fields here -->
+
+        <button type="submit">Create Course</button>
+    </form>
+

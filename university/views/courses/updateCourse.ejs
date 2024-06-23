@@ -1,0 +1,12 @@
+<% layout('layouts/boilerplate')%>
+    <h1>Update Course</h1>
+    <form action="/courses/<%= course._id %>/update" method="POST">
+        <label for="courseCode">Course Code:</label>
+        <input type="text" id="courseCode" name="courseCode" value="<%= course.courseCode %>" required><br>
+
+        <!-- Add other fields pre-filled with current values here -->
+
+        <button type="submit">Update Course</button>
+    </form>
+
+

@@ -1,0 +1,10 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+    <h1>Enrolled Courses</h1>
+    <ul>
+        <% enrolledCourses.forEach(course => { %>
+            <li><%= course.courseName %></li>
+        <% }); %>
+    </ul>
+</div>

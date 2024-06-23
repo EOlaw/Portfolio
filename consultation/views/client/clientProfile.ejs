@@ -1,4 +1,81 @@
-<%- layout('layouts/boilerplate') %>
+<!-- Favicons -->
+<link href="/consultation/public/lib/img/favicon.png" rel="icon">
+<link href="/consultation/public/lib/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="/consultation/public/lib/vendor/aos/aos.css" rel="stylesheet">
+<link href="/consultation/public/lib/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/consultation/public/lib/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="/consultation/public/lib/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="/consultation/public/lib/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+<link href="/consultation/public/lib/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="/consultation/public/lib/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link href="/consultation/public/css/style.css" rel="stylesheet">
+
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-lg-between">
+  
+      <h1 class="logo me-auto me-lg-0"><a href="/consultation/">DF<span>.</span></a></h1>
+  
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="/consultation/">Home</a></li>
+          <li><a class="nav-link scrollto" href="/consultation/about">About</a></li>
+          <li><a class="nav-link scrollto" href="/consultation/services">Services</a></li>
+          <li><a class="nav-link scrollto" href="/consultation/portfolio">Portfolio</a></li>
+          <li><a class="nav-link scrollto" href="/consultation/team">Team</a></li>
+          <li><a class="nav-link scrollto" href="/consultation/contact">Contact</a></li>
+          <% if (currentUser) { %>
+            <% if (currentUser && currentUser.role === 'consultant') { %>
+              <li><a href="/consultation/user/dashboard" class="nav-link scrollto">Consultant Portal</a></li>
+              <li class="dropdown"><a href="#"><span>Welcome to DF, <%= currentUser.firstname %></span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                  <li><a href="#">Profile</a></li>
+                  <li class="dropdown"><a href="#"><span>Help & Support</span> <i class="bi bi-chevron-right"></i></a>
+                    <ul>
+                      <li><a href="#">Help Center</a></li>
+                      <li><a href="#">Support Inbox</a></li>
+                      <li><a href="#">Report a problem</a></li>
+                      <li><a href="#">Terms & Policies</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">Settings & Privacy</a></li>
+                  <li><a href="/consultation/user/logout" class="text-danger">Logout</a></li>
+                </ul>
+              </li>
+            <% } else if (currentUser && currentUser.role === 'client') { %>
+              <li><a href="/consultation/user/dashboard" class="nav-link scrollto">Client Portal</a></li>
+              <li class="dropdown"><a href="#"><span>Welcome to DF, <%= currentUser.firstname %></span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                  <li><a href="#">Profile</a></li>
+                  <li class="dropdown"><a href="#"><span>Help & Support</span> <i class="bi bi-chevron-right"></i></a>
+                    <ul>
+                      <li><a href="#">Help Center</a></li>
+                      <li><a href="#">Support Inbox</a></li>
+                      <li><a href="#">Report a problem</a></li>
+                      <li><a href="#">Terms & Policies</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">Settings & Privacy</a></li>
+                  <li><a href="/consultation/user/logout" class="text-danger">Logout</a></li>
+                </ul>
+              </li>
+            <% } %>
+          <% } %>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+      <% if (!currentUser) { %>
+        <a href="/consultation/user/login" class="get-started-btn scrollto">Login</a>
+        <a href="/consultation/user/register" class="get-started-btn scrollto">Get Started</a>
+      <% } %>
+    </div>
+  </header>
 
 <!-- Header Start -->
 <div class="container-fluid bg-black py-5 mb-5 page-header">
@@ -22,15 +99,15 @@
     <h1>Client Profile</h1>
     <div class="row">
         <div class="col-md-4">
-            <img src="<%= client.user.profilePicture %>" alt="Profile Picture" class="img-fluid rounded">
+            <img src="<%= client.profilePicture %>" alt="Profile Picture" class="img-fluid rounded">
         </div>
         <div class="col-md-8">
             <h2><%= client.firstname %> <%= client.lastname %></h2>
             <p>Email: <%= client.user.email %></p>
             <p>Phone: <%= client.phoneNumber %></p>
             <p>Address: <%= client.address %></p>
-            <a href="/clients/<%= client._id %>/edit" class="btn btn-warning">Edit</a>
-            <form action="/clients/<%= client._id %>?_method=DELETE" method="POST" class="d-inline">
+            <a href="/consultation/clients/<%= client._id %>/edit" class="btn btn-warning">Edit</a>
+            <form action="/consultation/clients/<%= client._id %>?_method=DELETE" method="POST" class="d-inline">
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
         </div>
@@ -46,13 +123,13 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- Vendor JS Files -->
-  <script src="/lib/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="/lib/vendor/aos/aos.js"></script>
-  <script src="/lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/lib/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="/lib/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="/lib/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="/lib/vendor/php-email-form/validate.js"></script>
+  <script src="/consultation/public/lib/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/consultation/public/lib/vendor/aos/aos.js"></script>
+  <script src="/consultation/public/lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/consultation/public/lib/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/consultation/public/lib/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/consultation/public/lib/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/consultation/public/lib/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="/js/main.js"></script>
+  <script src="/consultation/public/js/main.js"></script>

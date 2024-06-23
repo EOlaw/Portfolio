@@ -1,0 +1,98 @@
+<% layout('layouts/boilerplate')%>
+<div class="container d-flex justify-content-center align-items-center mt-5">
+   <div class="row">
+       <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+        <!-- Notice Button -->
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong>Welcome!</strong> Please login to access your portal.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+           <div class="card shadow">
+               <img src="https://images.unsplash.com/photo-1571863533956-01c88e79957e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80"
+                   alt="" class="card-img-top" />
+                <!-- Role Buttons -->
+                <div class="text-center mt-3">
+                    <h5>Are you a:</h5>
+                    <button class="btn btn-outline-primary btn-lg student-btn">Student/Parent</button>
+                    <button class="btn btn-outline-primary btn-lg instructor-btn">Instructor/Center</button>
+                </div>
+               <div class="card-body">
+                   <h5 class="card-title">Login</h5>
+                   <form action="/user/login" method="POST" class="validated-form" novalidate>
+                       <div class="mb-3">
+                           <label class="form-label" for="username">Username</label>
+                           <input class="form-control" type="text" id="username" name="username" autofocus required>
+                           <div class="valid-feedback">
+                               Looks good!
+                           </div>
+                       </div>
+
+                       <div class="mb-3">
+                           <label class="form-label" for="password">Password</label>
+                           <input class="form-control" type="password" id="password" name="password" required>
+                           <div class="valid-feedback">
+                               Looks good!
+                           </div>
+                       </div>
+                       <input type="hidden" name="role" id="role"> <!-- Hidden field to store selected role -->
+                       <button class="btn btn-success btn-block">Login</button>
+                   </form>
+                   <form action="/user/register" class="text-center">
+                       <h5>Need an account?<button class="btn btn-outline-primary btn-block">Register</button></h5>
+                   </form>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const studentBtn = document.querySelector('.student-btn');
+        const instructorBtn = document.querySelector('.instructor-btn');
+        const roleInput = document.getElementById('role');
+
+        // Set role value when student button is clicked
+        studentBtn.addEventListener('click', function() {
+            roleInput.value = 'student';
+        });
+
+        // Set role value when instructor button is clicked
+        instructorBtn.addEventListener('click', function() {
+            roleInput.value = 'instructor';
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const studentBtn = document.querySelector('.student-btn');
+        const instructorBtn = document.querySelector('.instructor-btn');
+        const roleInput = document.getElementById('role');
+
+        // Add event listener to student button
+        studentBtn.addEventListener('click', function() {
+            // Set role value
+            roleInput.value = 'student';
+
+            // Highlight student button and remove highlight from instructor button
+            studentBtn.classList.add('btn-primary');
+            studentBtn.classList.remove('btn-outline-primary');
+            instructorBtn.classList.remove('btn-primary');
+            instructorBtn.classList.add('btn-outline-primary');
+        });
+
+        // Add event listener to instructor button
+        instructorBtn.addEventListener('click', function() {
+            // Set role value
+            roleInput.value = 'instructor';
+
+            // Highlight instructor button and remove highlight from student button
+            instructorBtn.classList.add('btn-primary');
+            instructorBtn.classList.remove('btn-outline-primary');
+            studentBtn.classList.remove('btn-primary');
+            studentBtn.classList.add('btn-outline-primary');
+        });
+    });
+</script>
