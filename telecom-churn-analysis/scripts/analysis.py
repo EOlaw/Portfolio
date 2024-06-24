@@ -10,6 +10,7 @@ import sys
 import base64
 import io
 import os
+import logging
 
 # Get the current directory of the script
 current_dir = os.path.dirname(os.path.realpath(__file__))
@@ -41,7 +42,7 @@ def preprocess_data(df):
 df = preprocess_data(df)
 
 def perform_eda(df):
-    stats_summary = df.describe().to_html()
+    stats_summary = df.describe().to_dict()
 
     # Correlation matrix
     plt.figure(figsize=(12, 8))
@@ -128,34 +129,37 @@ def visualize_model_performance(df):
 
     return roc_curve_img
 
+logging.basicConfig(filename='analysis.log', level=logging.INFO)
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python analysis.py [eda | build_model | visualize]")
+        print(json.dumps({"error": "Usage: python analysis.py [eda | build_model | visualize]"}))
         sys.exit(1)
     
     action = sys.argv[1]
-    if action == 'eda':
-        stats_summary, correlation_matrix, churn_distribution, pairplot = perform_eda(df)
-        result = {
-            'stats_summary': stats_summary,
-            'correlation_matrix': correlation_matrix,
-            'churn_distribution': churn_distribution,
-            'pairplot': pairplot
-        }
+    try:
+        if action == 'eda':
+            stats_summary, correlation_matrix, churn_distribution, pairplot = perform_eda(df)
+            result = {
+                'stats_summary': stats_summary,
+                'correlation_matrix': correlation_matrix,
+                'churn_distribution': churn_distribution,
+                'pairplot': pairplot
+            }
+        elif action == 'build_model':
+            log_reg_report, rf_clf_report = build_and_evaluate_model(df)
+            result = {
+                'log_reg_report': log_reg_report,
+                'rf_clf_report': rf_clf_report
+            }
+        elif action == 'visualize':
+            roc_curve_img = visualize_model_performance(df)
+            result = {
+                'roc_curve_img': roc_curve_img
+            }
+        else:
+            result = {"error": "Invalid action. Use 'eda', 'build_model', or 'visualize'."}
         print(json.dumps(result))
-    elif action == 'build_model':
-        log_reg_report, rf_clf_report = build_and_evaluate_model(df)
-        result = {
-            'log_reg_report': log_reg_report,
-            'rf_clf_report': rf_clf_report
-        }
-        print(json.dumps(result))
-    elif action == 'visualize':
-        roc_curve_img = visualize_model_performance(df)
-        result = {
-            'roc_curve_img': roc_curve_img
-        }
-        print(json.dumps(result))
-    else:
-        print("Invalid action. Use 'eda', 'build_model', or 'visualize'.")
-        sys.exit(1)
+    except Exception as e:
+        logging.error(f"An error occurred: {str(e)}", exc_info=True)
+        print(json.dumps({"error": str(e)}))

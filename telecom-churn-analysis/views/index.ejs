@@ -2,22 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Telecom Churn Analysis</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .jumbotron {
+            background-color: #e9ecef;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            border-radius: .3rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- Display EDA results -->
-    <h2>Stats Summary</h2>
-    <%- data.stats_summary %>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Telecom Churn Analysis</a>
+        </div>
+    </nav>
 
-    <h2>Correlation Matrix</h2>
-    <img src="data:image/png;base64, <%= data.correlation_matrix %>" alt="Correlation Matrix">
+    <div class="container mt-4">
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to the Telecom Customer Churn Analysis App</h1>
+            <p class="lead">Analyze, model, and visualize customer churn data with ease.</p>
+        </div>
 
-    <h2>Churn Distribution</h2>
-    <img src="data:image/png;base64, <%= data.churn_distribution %>" alt="Churn Distribution">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Perform EDA</h5>
+                        <p class="card-text">Explore and analyze the telecom customer data.</p>
+                        <a href="/telecom/eda" class="btn btn-primary">Start EDA</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Build and Evaluate Model</h5>
+                        <p class="card-text">Construct and assess the churn prediction model.</p>
+                        <a href="/telecom/build_model" class="btn btn-primary">Build Model</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Visualize Model Performance</h5>
+                        <p class="card-text">Generate visual insights from the model results.</p>
+                        <a href="/telecom/visualize" class="btn btn-primary">Visualize</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <h2>Pairplot</h2>
-    <img src="data:image/png;base64, <%= data.pairplot %>" alt="Pairplot">
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

@@ -2,17 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>EDA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDA - Telecom Churn Analysis</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding-top: 20px; }
+        .img-fluid { max-width: 100%; height: auto; }
+        .table-responsive { overflow-x: auto; }
+    </style>
 </head>
 <body>
-    <h1>Exploratory Data Analysis</h1>
-    <h2>Statistical Summary</h2>
-    <div><%= stats_summary %></div>
-    <h2>Correlation Matrix</h2>
-    <img src="data:image/png;base64,<%= correlation_matrix %>">
-    <h2>Churn Distribution</h2>
-    <img src="data:image/png;base64,<%= churn_distribution %>">
-    <h2>Pairplot of Selected Features</h2>
-    <img src="data:image/png;base64,<%= pairplot %>">
+    <div class="container">
+        <h1 class="mb-4">Exploratory Data Analysis</h1>
+        
+        <section class="mb-5">
+            <h2 class="mb-3">Statistical Summary</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Statistic</th>
+                            <% for (let column in stats_summary) { %>
+                                <th><%= column %></th>
+                            <% } %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% ['count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max'].forEach(stat => { %>
+                            <tr>
+                                <th><%= stat %></th>
+                                <% for (let column in stats_summary) { %>
+                                    <td><%= stats_summary[column][stat].toFixed(2) %></td>
+                                <% } %>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section class="mb-5">
+            <h2 class="mb-3">Correlation Matrix</h2>
+            <img src="data:image/png;base64,<%= correlation_matrix %>" class="img-fluid" alt="Correlation Matrix">
+        </section>
+        
+        <section class="mb-5">
+            <h2 class="mb-3">Churn Distribution</h2>
+            <img src="data:image/png;base64,<%= churn_distribution %>" class="img-fluid" alt="Churn Distribution">
+        </section>
+        
+        <section class="mb-5">
+            <h2 class="mb-3">Pairplot of Selected Features</h2>
+            <img src="data:image/png;base64,<%= pairplot %>" class="img-fluid" alt="Pairplot of Selected Features">
+        </section>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

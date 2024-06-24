@@ -27,7 +27,7 @@ router.route('/departments/:id')
 
 // Semester and Course Management Routes
 router.route('/courses/create')
-    .post(isAuthenticated, isAdmin, adminControllers.createCourse)
+    .post(adminControllers.createCourse)
 router.route('/courses')
     .get(adminControllers.getCourses)
 router.route('/course/:id')
