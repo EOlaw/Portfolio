@@ -27,7 +27,7 @@ const adminRoutes = require('./routes/adminRoutes')
 //const cartRoutes = require('./routes/cartRoute')
 
 const MongoDBStore = require('connect-mongo');
-const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.DB_URL_UNIVERSITY;
 
 // Set up the database connection
 mongoose.connect(dbUrl);
