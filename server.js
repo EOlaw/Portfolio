@@ -33,6 +33,7 @@ app.use('/consultation', consultation);
 app.use('/university', university);
 app.use('/telecom', telecom);
 
-app.listen(3000, () => {
-    console.log('Main server running on port 3000');
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Serving on port ${port}`);
 });
