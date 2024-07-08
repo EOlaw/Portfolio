@@ -1,2 +1,0 @@
-# watoUniversity
- An education website
