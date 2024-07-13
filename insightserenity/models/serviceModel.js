@@ -6,6 +6,7 @@ const serviceSchema = new Schema({
     description: { type: String },
     duration: { type: Number, required: true }, // duration in minutes
     price: { type: Number, required: true },
+    category: { type: String, required: true }
 }, { timestamps: true });
 
 const Service = mongoose.model('Service', serviceSchema);

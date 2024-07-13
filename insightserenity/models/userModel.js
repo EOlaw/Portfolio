@@ -7,7 +7,7 @@ const userSchema = new Schema({
     lastname: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     role: { type: String, enum: ['consultant', 'client'], required: true },
-    contactNumber: { type: Number },
+    contactNumber: { type: Number, unique: true },
     profilePicture: { type: String },
     lastLogin: { type: Date },
     consultantProfile: { type: Schema.Types.ObjectId, ref: 'Consultant' },

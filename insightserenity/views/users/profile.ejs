@@ -1,0 +1,23 @@
+<!-- views/users/profile.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <p>First Name: <%= user.firstname %></p>
+    <p>Last Name: <%= user.lastname %></p>
+    <p>Email: <%= user.email %></p>
+    <p>Role: <%= user.role %></p>
+    <% if (user.role === 'consultant' && consultant) { %>
+        <p>Consultant Details: <%= consultant.bio %></p>
+    <% } else if (user.role === 'client' && client) { %>
+        <p>Client Details: <%= client.companyName %></p>
+    <% } %>
+    <a href="/insightserenity/user/<%= user._id %>/update">Update</a>
+    <a href="/insightserenity/user/<%= user._id %>/delete">Delete</a>
+</body>
+</html>

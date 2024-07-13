@@ -7,52 +7,65 @@
     <title>Data-Forage Consultation</title>
    
     <!-- Favicons -->
-    <link href="/lib/img/favicon.png" rel="icon">
-    <link href="/lib/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="/insightserenity/public/lib/img/favicon.png" rel="icon">
+    <link href="/insightserenity/public/lib/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="/lib/vendor/aos/aos.css" rel="stylesheet">
-    <link href="/lib/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/lib/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/lib/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="/lib/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="/lib/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="/lib/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="/insightserenity/public/lib/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/insightserenity/public/lib/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/insightserenity/public/lib/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/insightserenity/public/lib/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/insightserenity/public/lib/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/insightserenity/public/lib/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/insightserenity/public/lib/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="/insightserenity/public/css/style.css" rel="stylesheet">
 
 </head>
 
 <body class="d-flex flex-column vh-100">
-    <%- include('../partials/navbar')%>
+    <% try { %>
+        <%- include('../partials/navbar') %>
+    <% } catch (err) { %>
+        Error including navbar: <%= err.message %>
+    <% } %>
+
     <main class="">
-        <%- include('../partials/flash')%>
+        <% try { %>
+            <%- include('../partials/flash') %>
+        <% } catch (err) { %>
+            Error including flash: <%= err.message %>
+        <% } %>
+        
         <%- body %>
     </main>
-    <%- include('../partials/footer')%>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" 
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
+
+    <% try { %>
+        <%- include('../partials/footer') %>
+    <% } catch (err) { %>
+        Error including footer: <%= err.message %>
+    <% } %>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- Vendor JS Files -->
-  <script src="/lib/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="/lib/vendor/aos/aos.js"></script>
-  <script src="/lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/lib/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="/lib/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="/lib/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="/lib/vendor/php-email-form/validate.js"></script>
+    <script src="/insightserenity/public/lib/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="/insightserenity/public/lib/vendor/aos/aos.js"></script>
+    <script src="/insightserenity/public/lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/insightserenity/public/lib/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/insightserenity/public/lib/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="/insightserenity/public/lib/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/insightserenity/public/lib/vendor/php-email-form/validate.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="/js/main.js"></script>
+    <!-- Template Main JS File -->
+    <script src="/insightserenity/public/js/main.js"></script>
+</body>
 
 </html>

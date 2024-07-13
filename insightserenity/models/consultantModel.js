@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const consultantSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    specialization: { type: [String], required: true },
+    specializations: { type: [String], required: true },
     experienceYears: { type: Number, min: 0 },
     bio: { type: String },
     certifications: { type: [String] },

@@ -8,11 +8,12 @@ const userControllers = {
         try {
             const user = req.user;
             if (user) return res.redirect('/');
-            return res.status(200).render('user/register');
+            return res.status(200).render('users/register');
         } catch (err) {
             res.status(500).send(err);
         }
     },
+
     // Post Register
     registerUser: async (req, res, next) => {
         try {
@@ -39,7 +40,7 @@ const userControllers = {
             req.login(user, err => {
                 if (err) return next(err);
                 console.log(user);
-                res.status(200).json({ success: 'User registered successfully', user });
+                res.redirect(`/insightserenity/user/${user._id}`);
             });
         } catch (err) {
             console.log(err);
@@ -52,11 +53,12 @@ const userControllers = {
         try {
             const user = req.user;
             if (user) return res.redirect('/insightserenity');
-            return res.status(200).render('user/login');
+            return res.status(200).render('users/login');
         } catch (err) {
             res.status(500).json(err);
         }
     },
+
     // Post Login
     loginUser: async (req, res) => {
         try {
@@ -64,15 +66,15 @@ const userControllers = {
             if (user.role === 'consultant') {
                 const consultant = await Consultant.findOne({ userId: user._id });
                 if (consultant) {
-                    return res.status(200).json({ success: 'Welcome back, Consultant!', redirectUrl: `/insightserenity/consultant/${consultant._id}` });
+                    return res.redirect(`/insightserenity/user/${user._id}`);
                 }
             } else if (user.role === 'client') {
                 const client = await Client.findOne({ userId: user._id });
                 if (client) {
-                    return res.status(200).json({ success: 'Welcome back, Client!', redirectUrl: `/insightserenity/client/${client._id}` });
+                    return res.redirect(`/insightserenity/user/${user._id}`);
                 }
             }
-            res.status(200).json({ success: 'Welcome back!', redirectUrl: '/insightserenity' });
+            res.redirect('/insightserenity');
         } catch (err) {
             console.error(err);
             res.status(500).json({ error: 'Something went wrong. Please try again.' });
@@ -86,18 +88,21 @@ const userControllers = {
                 console.log(err);
                 return res.status(500).json({ error: 'Logout failed. Please try again.' });
             }
-            res.status(200).json({ success: 'User logged out successfully' });
+            res.redirect('/insightserenity');
         });
     },
+
     // Get Users Profile
     getUsers: async (req, res) => {
         try {
             const users = await User.find();
-            res.status(200).json({ users });
+            // res.status(200).json({ users });
+            res.status(200).render('users/list', { users });
         } catch (err) {
             res.status(400).json({ error: err.message });
         }
     },
+
     // Get User Profile
     getUser: async (req, res) => {
         try {
@@ -117,8 +122,8 @@ const userControllers = {
                 const client = await Client.findOne({ userId });
                 profile = { ...profile, client };
             }
-
-            res.status(200).json(profile);
+            //res.status(200).json(profile);
+            res.status(200).render('users/profile', profile);
         } catch (error) {
             res.status(400).json({ error });
         }
@@ -147,7 +152,7 @@ const userControllers = {
                 updatedProfile = { ...updatedProfile, client };
             }
 
-            res.status(200).json(updatedProfile);
+            res.redirect(`/user/${user._id}`);
         } catch (error) {
             res.status(400).json({ error });
         }
@@ -169,12 +174,11 @@ const userControllers = {
                 await Client.findOneAndDelete({ userId });
             }
 
-            res.status(200).json({ success: 'User deleted' });
+            res.redirect('/users');
         } catch (error) {
             res.status(400).json({ error });
         }
     },
-
 };
 
 module.exports = userControllers;

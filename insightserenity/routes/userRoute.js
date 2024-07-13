@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const User = require('../models/userModel');
 const userControllers = require('../controllers/userController');
-const { isAuthenticated, isAdmin, isAuthorizedAsConsultant, isAuthorizedAsClient } = require('../middleware/authControllers');
+const { isAuthenticated } = require('../middleware/authMiddlewares');
 
 // User Profile
 router.route('/register')
@@ -18,7 +18,7 @@ router.route('/logout')
     .get(isAuthenticated, userControllers.logout)
 
 router.route('/')
-    .get( userControllers.getUsers)
+    .get(userControllers.getUsers)
 
 router.route('/:id')
     .get(isAuthenticated, userControllers.getUser)

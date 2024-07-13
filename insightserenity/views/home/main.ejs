@@ -1,0 +1,166 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center justify-content-center">
+  <div class="container" data-aos="fade-up">
+
+    <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+      <div class="col-xl-6 col-lg-8">
+        <h1>InsightSerenity<span>.</span></h1>
+        <h2>Premier IT and Data Science Consulting Services</h2>
+      </div>
+    </div>
+
+    <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+      <div class="col-xl-2 col-md-4">
+        <div class="icon-box">
+          <i class="ri-store-line"></i>
+          <h3><a href="#services">Services</a></h3>
+        </div>
+      </div>
+      <div class="col-xl-2 col-md-4">
+        <div class="icon-box">
+          <i class="ri-calendar-line"></i>
+          <h3><a href="/insightserenity/consultation/create">Book Now</a></h3>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section><!-- End Hero -->
+
+<main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+            <img src="lib/img/about.jpg" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right" data-aos-delay="100">
+            <h3>Empowering Your Business with Insightful Solutions</h3>
+            <p class="fst-italic">
+              At InsightSerenity, we specialize in delivering premier IT and data science consulting services alongside life literacy coaching rooted in biblical principles.
+            </p>
+            <ul>
+              <li><i class="ri-check-double-line"></i> Customized data analysis and insights.</li>
+              <li><i class="ri-check-double-line"></i> IT consulting and systems integration.</li>
+              <li><i class="ri-check-double-line"></i> Life literacy coaching for personal and professional growth.</li>
+            </ul>
+            <p>
+              Our mission is to provide transformative solutions that empower businesses and individuals to achieve their goals with integrity and excellence.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Services</h2>
+          <p>Explore Our Services</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bxl-dribbble"></i></div>
+              <h4><a href="">IT Consulting</a></h4>
+              <p>Providing strategic IT consulting to enhance your business operations.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-file"></i></div>
+              <h4><a href="">Data Science Solutions</a></h4>
+              <p>Transforming data into actionable insights for better decision-making.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-tachometer"></i></div>
+              <h4><a href="">Life Literacy Coaching</a></h4>
+              <p>Empowering individuals with the knowledge and skills for personal growth.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Book a Consultation</h2>
+          <p>Schedule your session with InsightSerenity</p>
+        </div>
+
+        <div>
+          <iframe style="border:0; width: 100%; height: 270px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3463581.238368914!2d-95.8232680431166!3d29.760426845820692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640bf26dd4a7e4b%3A0x69d14a8ca0324b5d!2sHouston%2C%20TX!5e0!3m2!1sen!2sus!4v1649565404542!5m2!1sen!2sus" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>123 Main Street, Houston, TX</p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>info@insightserenity.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>+1 346 383 9529</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+            <form action="/contact" method="post" class="php-email-form">
+              <div class="row gy-4">
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+                <div class="col-md-12">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                </div>
+                <div class="col-md-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                </div>
+                <div class="col-md-12 text-center">
+                  <button type="submit">Send Message</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+</main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

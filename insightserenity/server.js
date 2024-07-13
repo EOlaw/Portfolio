@@ -18,9 +18,10 @@ const secret = process.env.SECRET || 'p2xv8BGCmMmIYN1UkFVfrVRZBxeYKr11vLZTfqEMwa
 
 // const homeRoutes = require('./routes/homeRoutes');
 const userRoutes = require('./routes/userRoute');
-// const clientRoutes = require('./routes/clientRoutes');
-// const consultantRoutes = require('./routes/consultantRoutes');
-// const consultationRoutes = require('./routes/consultationRoutes');
+const clientRoutes = require('./routes/clientRoute');
+const consultantRoutes = require('./routes/consultantRoute');
+const consultationRoutes = require('./routes/consultationRoute');
+const serviceRoutes = require('./routes/serviceRoute');
 
 
 
@@ -36,6 +37,8 @@ db.once("open", () => {
 // Set up the view engine
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
+// Clear EJS cache
+app.set('view cache', false);
 app.set('views', path.join(__dirname, 'views'));
 
 // Set up middleware for parsing JSON and handling URL-encoded data
@@ -76,14 +79,16 @@ app.use(async (req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    res.json({ success: "It works" });
+    res.render('home/main')
 });
 
 // Handle Routes
 // app.use('/', homeRoutes);
 app.use('/user', userRoutes);
-// app.use('/client', clientRoutes);
-// app.use('/consultant', consultantRoutes);
+app.use('/client', clientRoutes);
+app.use('/consultant', consultantRoutes);
+app.use('/consultation', consultationRoutes);
+app.use('/services', serviceRoutes);
 
 /*
 const port = process.env.PORT || 4000;

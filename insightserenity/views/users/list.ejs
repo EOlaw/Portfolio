@@ -1,0 +1,17 @@
+<!-- views/users/list.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users List</title>
+</head>
+<body>
+    <h1>Users List</h1>
+    <ul>
+        <% users.forEach(user => { %>
+            <li><a href="/insightserenity/user/<%= user._id %>"><%= user.firstname %> <%= user.lastname %> (<%= user.role %>)</a></li>
+        <% }) %>
+    </ul>
+</body>
+</html>

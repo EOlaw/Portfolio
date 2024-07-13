@@ -1,0 +1,33 @@
+<% layout('layouts/boilerplate') %>
+  <main id="main" style="margin-top: 100px;">
+    <div class="container">
+      <div class="section-title">
+        <h2>Edit Consultation</h2>
+        <p>Update consultation details</p>
+      </div>
+
+      <form action="/insightserenity/consultation/<%= consultation._id %>/update" method="POST">
+        <div class="mb-3">
+          <label for="date" class="form-label">Date</label>
+          <input type="datetime-local" class="form-control" id="date" name="date" value="<%= new Date(consultation.date).toISOString().slice(0, 16) %>" required>
+        </div>
+        <div class="mb-3">
+          <label for="duration" class="form-label">Duration (in minutes)</label>
+          <input type="number" class="form-control" id="duration" name="duration" value="<%= consultation.duration %>" required>
+        </div>
+        <div class="mb-3">
+          <label for="mode" class="form-label">Mode</label>
+          <select class="form-select" id="mode" name="mode" required>
+            <option value="online" <%= consultation.mode === 'online' ? 'selected' : '' %>>Online</option>
+            <option value="offline" <%= consultation.mode === 'offline' ? 'selected' : '' %>>Offline</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="notes" class="form-label">Notes</label>
+          <textarea class="form-control" id="notes" name="notes" rows="3"><%= consultation.notes %></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Consultation</button>
+      </form>
+      
+    </div>
+  </main>

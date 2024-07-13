@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate') %>
+<main id="main" style="margin-top: 100px;">
+    <div class="container">
+      <div class="section-title">
+        <h2>Consultant Profile</h2>
+        <p>View and manage your profile information</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Personal Information</h5>
+              <p class="card-text"><strong>Name:</strong> <%= consultant.name %></p>
+              <p class="card-text"><strong>Email:</strong> <%= consultant.email %></p>
+              <p class="card-text"><strong>Phone:</strong> <%= consultant.phone %></p>
+              <!-- Add more personal information fields as needed -->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Consultant Details</h5>
+              <p class="card-text"><strong>Specialization:</strong> <%= consultant.specialization %></p>
+              <p class="card-text"><strong>Experience:</strong> <%= consultant.experience %> years</p>
+              <!-- Add more consultant details as needed -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <a href="/consultant/profile/edit" class="btn btn-primary">Edit Profile</a>
+      </div>
+      
+    </div>
+</main>
