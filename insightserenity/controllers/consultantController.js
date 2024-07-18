@@ -6,9 +6,9 @@ const consultantControllers = {
     // Get Consultant Profile
     getConsultantProfile: async (req, res) => {
         try {
-            const consultant = await Consultant.findOne({ userId: req.user._id });
+            const consultant = await Consultant.findOne({ userId: req.user._id }).populate('userId');
             if (!consultant) return res.status(404).json({ error: 'Consultant profile not found' });
-            res.status(200).json({ consultant });
+            res.status(200).render('consultants/profile', { consultant });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -33,6 +33,16 @@ const consultantControllers = {
             res.status(200).json({ consultations });
         } catch (error) {
             res.status(500).json({ error: error.message });
+        }
+    },
+    // Render form to update a consultant profile by ID
+    renderUpdateForm: async (req, res) => {
+        try {
+            const consultant = await Consultant.findById({ userId: req.user._id }).populate('userId');
+            if (!consultant) return res.status(404).render('error', { message: 'Consultant profile not found' });
+            res.render('consultants/update', { consultant });
+        } catch (err) {
+            res.status(400).render('error', { message: err.message });
         }
     },
     // Update Consultant Profile

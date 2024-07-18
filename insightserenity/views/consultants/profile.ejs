@@ -1,4 +1,49 @@
 <% layout('layouts/boilerplate') %>
+
+<!-- Header Start -->
+<div class="container-fluid bg-black py-5 mb-5 page-header">
+  <div class="container py-5">
+      <div class="row justify-content-center">
+          <div class="col-lg-10 text-center">
+              <h1 class="display-3 text-white animated slideInDown">Consultant Profile</h1>
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb justify-content-center">
+                      <li class="breadcrumb-item"><a class="text-white" href="/insightserenity">Home</a></li>
+                      <li class="breadcrumb-item text-white active" aria-current="page">Consultant Profile</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+  </div>
+</div>
+<style>
+  .profile-container {
+      margin-top: 50px;
+  }
+  .profile-header {
+      margin-bottom: 30px;
+  }
+  .profile-picture {
+      background-size: cover;
+      min-height: 400px;
+  }
+  .profile-info {
+      margin-bottom: 30px;
+  }
+  .rating span {
+      color: gold;
+      font-size: 1.5em;
+  }
+  a {
+      color: black;
+  }
+  a:hover {
+      color: #005582;
+  }
+  .table-responsive {
+      margin-top: 20px;
+  }
+</style>
 <main id="main" style="margin-top: 100px;">
     <div class="container">
       <div class="section-title">
@@ -7,31 +52,91 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-body">
+        <div class="col-md-4 text-center">
+          <div class="profile-header">
               <h5 class="card-title">Personal Information</h5>
-              <p class="card-text"><strong>Name:</strong> <%= consultant.name %></p>
-              <p class="card-text"><strong>Email:</strong> <%= consultant.email %></p>
-              <p class="card-text"><strong>Phone:</strong> <%= consultant.phone %></p>
-              <!-- Add more personal information fields as needed -->
-            </div>
+              <img src="<%= consultant.userId.profilePicture %>" alt="Profile Picture" class="profile-picture img-fluid">
+              <h1 class="h3"><%= consultant.userId.firstname %> <%= consultant.userId.lastname %></h1>
+              <p class="text-muted"><%= consultant.userId.email %></p>
+              <p class="card-text"><%= consultant.userId.contactNumber %></p>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Consultant Details</h5>
-              <p class="card-text"><strong>Specialization:</strong> <%= consultant.specialization %></p>
-              <p class="card-text"><strong>Experience:</strong> <%= consultant.experience %> years</p>
-              <!-- Add more consultant details as needed -->
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <tbody>
+                      <tr>
+                        <th scope="row">Biography</th>
+                        <td><%= consultant.bio %></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Specializations</th>
+                          <td>
+                              <ul class="list-unstyled">
+                                  <% consultant.specializations.forEach(function(specialty) { %>
+                                      <li><%= specialty %></li>
+                                  <% }); %>
+                              </ul>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Experience</th>
+                          <td>
+                            <% if (consultant.experienceYears > 0) { %>
+                              <%= consultant.experienceYears %> <%= consultant.experienceYears > 1 ? 'years' : 'year' %>
+                            <% } else { %>
+                              N/A
+                            <% } %>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Certifications</th>
+                          <td>
+                              <ul class="list-unstyled">
+                                  <% consultant.certifications.forEach(function(certification) { %>
+                                      <li><%= certification %></li>
+                                  <% }); %>
+                              </ul>
+                          </td>
+                      </tr>
+                      <tr>
+                          <th scope="row">LinkedIn Profile</th>
+                          <td><a href="<%= consultant.linkedInProfile %>"><%= consultant.linkedInProfile %></a></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Availability</th>
+                          <td><%= consultant.availability ? 'Available' : 'Not Available' %></td>
+                      </tr>
+                      <tr>
+                          <th scope="row">Rating</th>
+                          <td class="rating">
+                              <% for (let i = 0; i < 5; i++) { %>
+                                  <% if (i < consultant.rating) { %>
+                                      <span>&#9733;</span>
+                                  <% } else { %>
+                                      <span>&#9734;</span>
+                                  <% } %>
+                              <% } %>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="mt-4">
-        <a href="/consultant/profile/edit" class="btn btn-primary">Edit Profile</a>
+        <% if (currentUser && currentUser._id.equals(consultant.userId._id)) { %>
+          <a href="/insightserenity/consultant/<%= consultant._id %>/edit" class="btn btn-warning">Edit Profile</a>
+          <form action="/insightserenity/consultant/<%= consultant._id %>?_method=DELETE" method="POST" class="d-inline">
+              <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+      <% } %>
       </div>
       
     </div>

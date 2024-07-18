@@ -66,7 +66,7 @@ const userControllers = {
             if (user.role === 'consultant') {
                 const consultant = await Consultant.findOne({ userId: user._id });
                 if (consultant) {
-                    return res.redirect(`/insightserenity/user/${user._id}`);
+                    return res.redirect(`/insightserenity/consultant/`);
                 }
             } else if (user.role === 'client') {
                 const client = await Client.findOne({ userId: user._id });

@@ -4,8 +4,12 @@ const consultantControllers = require('../controllers/consultantController');
 const { isAuthenticated, isConsultant, isClient } = require('../middleware/authMiddlewares');
 
 // Consultant Routes
+// Render form to update a consultant profile by ID
 router.route('/')
     .get(isAuthenticated, isConsultant, consultantControllers.getConsultantProfile)
+router.route('/:id/edit')
+    .get(isAuthenticated, isConsultant, consultantControllers.renderUpdateForm);
+router.route('/update')
     .put(isAuthenticated, isConsultant, consultantControllers.updateConsultantProfile)
 // Consultant Routes
 router.route('/consultations')
