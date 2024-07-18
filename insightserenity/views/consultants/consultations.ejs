@@ -1,0 +1,47 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Header Start -->
+<div class="container-fluid bg-black py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">
+                    <%= status ? status.charAt(0).toUpperCase() + status.slice(1) : '' %> Consultations
+                </h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="/insightserenity">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Consultations</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<main id="main" style="margin-top: 100px;">
+    <div class="container">
+        <div class="section-title">
+            <h2><%= status ? status.charAt(0).toUpperCase() + status.slice(1) : '' %> Consultations</h2>
+            <p>List of <%= status %> consultations</p>
+        </div>
+
+        <div class="row">
+            <% consultations.forEach(consultation => { %>
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= consultation.serviceId.name %></h5>
+                            <p class="card-text">Client: <%= consultation.clientId.contactPerson %></p>
+                            <p class="card-text">Company: <%= consultation.clientId.companyName %></p>
+                            <p class="card-text">Industry: <%= consultation.clientId.industry %></p>
+                            <p class="card-text">Status: <%= consultation.status %></p>
+                            <a href="/insightserenity/consultant/consultations/<%= consultation._id %>" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</main>

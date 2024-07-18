@@ -1,0 +1,65 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Header Start -->
+<div class="container-fluid bg-black py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Edit Profile</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="/insightserenity">Home</a></li>
+                        <li class="breadcrumb-item"><a class="text-white" href="/insightserenity/consultant/<%= consultant._id %>">Consultant Profile</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Edit Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<main id="main" style="margin-top: 100px;">
+    <div class="container">
+        <div class="section-title">
+            <h2>Edit Profile</h2>
+            <p>Update your profile information</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/insightserenity/consultant/edit" method="POST">
+                            <div class="form-group">
+                                <label for="specializations">Specializations</label>
+                                <input type="text" class="form-control" id="specializations" name="specializations" value="<%= consultant.specializations %>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="experienceYears">Experience</label>
+                                <input type="number" class="form-control" id="experienceYears" name="experienceYears" value="<%= consultant.experienceYears %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="bio">Biography</label>
+                                <textarea class="form-control" id="bio" name="bio" rows="5"><%= consultant.bio %></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="certifications">Certifications</label>
+                                <input type="text" class="form-control" id="certifications" name="certifications" value="<%= consultant.certifications %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="linkedInProfile">LinkedIn Profile</label>
+                                <input type="text" class="form-control" id="linkedInProfile" name="linkedInProfile" value="<%= consultant.linkedInProfile %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="availability">Availability</label>
+                                <input type="text" class="form-control" id="availability" name="availability" value="<%= consultant.availability %>">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

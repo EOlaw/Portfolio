@@ -1,0 +1,59 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Header Start -->
+<div class="container-fluid bg-black py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Consultation Details</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="/insightserenity">Home</a></li>
+                        <li class="breadcrumb-item"><a class="text-white" href="/insightserenity/consultant/consultations">Consultations</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Consultation Details</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<main id="main" style="margin-top: 100px;">
+    <div class="container">
+        <div class="section-title">
+            <h2>Consultation Details</h2>
+            <p>View details of the consultation</p>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Consultation Information</h5>
+                <p class="card-text"><strong>Client Name:</strong> <%= consultation.clientId.userId.firstname %> <%= consultation.clientId.userId.lastname %></p>
+                <p class="card-text"><strong>Company:</strong> <%= consultation.clientId.companyName %></p>
+                <p class="card-text"><strong>Industry:</strong> <%= consultation.clientId.industry %></p>
+                <p class="card-text"><strong>Contact Person:</strong> <%= consultation.clientId.contactPerson %></p>
+                <p class="card-text"><strong>Service:</strong> <%= consultation.serviceId.name %></p>
+                <p class="card-text"><strong>Description:</strong> <%= consultation.serviceId.description %></p>
+                <p class="card-text"><strong>Duration:</strong> <%= consultation.serviceId.duration %> hours</p>
+                <p class="card-text"><strong>Price:</strong> $<%= consultation.serviceId.price.toFixed(2) %></p>
+                <p class="card-text"><strong>Status:</strong> <%= consultation.status %></p>
+                <p class="card-text"><strong>Date:</strong> <%= consultation.date.toLocaleDateString() %></p>
+                <!-- Add more consultation details as needed -->
+            </div>
+            <div class="card-footer">
+                <% if (consultation.status === 'pending' || consultation.status === 'approved' || consultation.status === 'canceled' || consultation.status === 'rescheduled') { %>
+                    <form action="/insightserenity/consultant/consultations/<%= consultation._id %>/approve" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                    <form action="/insightserenity/consultant/consultations/<%= consultation._id %>/cancel" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">Cancel</button>
+                    </form>
+                    <form action="/insightserenity/consultant/consultations/<%= consultation._id %>/reschedule" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-warning">Reschedule</button>
+                    </form>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</main>

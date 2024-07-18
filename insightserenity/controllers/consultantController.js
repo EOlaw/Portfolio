@@ -7,18 +7,27 @@ const consultantControllers = {
     getConsultantProfile: async (req, res) => {
         try {
             const consultant = await Consultant.findOne({ userId: req.user._id }).populate('userId');
-            if (!consultant) return res.status(404).json({ error: 'Consultant profile not found' });
+            if (!consultant) return res.status(404).render('error', { err: { message: 'Consultant profile not found', statusCode: 404 } });
             res.status(200).render('consultants/profile', { consultant });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).render('error', { err: { message: error.message, statusCode: 500 } });
         }
     },
+
+    // Get All Consultations with Filter
     getConsultations: async (req, res) => {
         try {
             const consultant = await Consultant.findOne({ userId: req.user._id });
-            if (!consultant) return res.status(404).json({ error: 'Consultant profile not found' });
+            if (!consultant) {
+                return res.status(404).render('error', { err: { message: 'Consultant profile not found', statusCode: 404 } });
+            }
 
-            const consultations = await Consultation.find({ consultantId: consultant._id })
+            const filter = { consultantId: consultant._id };
+            if (req.query.status) {
+                filter.status = req.query.status;
+            }
+
+            const consultations = await Consultation.find(filter)
                 .populate({
                     path: 'clientId',
                     populate: {
@@ -30,40 +39,41 @@ const consultantControllers = {
                 })
                 .populate('serviceId', 'name description duration price');
 
-            res.status(200).json({ consultations });
+            res.status(200).render('consultants/consultations', { consultations, status: req.query.status });
+        } catch (error) {
+            res.status(500).render('error', { err: { message: error.message, statusCode: 500 } });
+        }
+    },
+
+    // Render Edit Profile Form
+    renderEditProfileForm: async (req, res) => {
+        try {
+            const consultant = await Consultant.findOne({ userId: req.user._id }).populate('userId');
+            if (!consultant) return res.status(404).json({ error: 'Consultant profile not found' });
+            res.status(200).render('consultants/edit', { consultant });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     },
-    // Render form to update a consultant profile by ID
-    renderUpdateForm: async (req, res) => {
-        try {
-            const consultant = await Consultant.findById({ userId: req.user._id }).populate('userId');
-            if (!consultant) return res.status(404).render('error', { message: 'Consultant profile not found' });
-            res.render('consultants/update', { consultant });
-        } catch (err) {
-            res.status(400).render('error', { message: err.message });
-        }
-    },
+
     // Update Consultant Profile
     updateConsultantProfile: async (req, res) => {
         try {
             const consultant = await Consultant.findOneAndUpdate({ userId: req.user._id }, req.body, { new: true, runValidators: true });
+            if (!consultant) return res.status(404).render('error', { err: { message: 'Consultant profile not found', statusCode: 404 } });
+            res.status(200).redirect(`/insightserenity/consultant/`);
+        } catch (error) {
+            res.status(500).render('error', { err: { message: error.message, statusCode: 500 } });
+        }
+    },
+
+    // Render Consultations Dashboard
+    renderConsultationsDashboard: async (req, res) => {
+        try {
+            const consultant = await Consultant.findOne({ userId: req.user._id });
             if (!consultant) return res.status(404).json({ error: 'Consultant profile not found' });
-            res.status(200).json({ consultant });
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
-    // Get Pending Consultations
-    getPendingConsultations: async (req, res) => {
-        try {
-            const consultant = await Consultant.findOne({ userId: req.user._id });
-            if (!consultant) {
-                return res.status(404).json({ error: 'Consultant profile not found' });
-            }
 
-            const consultations = await Consultation.find({ consultantId: consultant._id, status: 'pending' })
+            const consultation = await Consultation.find({ consultantId: consultant._id })
                 .populate({
                     path: 'clientId',
                     populate: {
@@ -75,21 +85,19 @@ const consultantControllers = {
                 })
                 .populate('serviceId', 'name description duration price');
 
-            res.status(200).json({ consultations });
+            res.status(200).render('consultants/consultations', { consultation });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     },
 
-    // Get Approved Consultations
-    getApprovedConsultations: async (req, res) => {
+    // Render Consultation Details
+    renderConsultationDetails: async (req, res) => {
         try {
             const consultant = await Consultant.findOne({ userId: req.user._id });
-            if (!consultant) {
-                return res.status(404).json({ error: 'Consultant profile not found' });
-            }
+            if (!consultant) return res.status(404).json({ error: 'Consultant profile not found' });
 
-            const consultations = await Consultation.find({ consultantId: consultant._id, status: 'approved' })
+            const consultation = await Consultation.findById(req.params.id)
                 .populate({
                     path: 'clientId',
                     populate: {
@@ -101,102 +109,80 @@ const consultantControllers = {
                 })
                 .populate('serviceId', 'name description duration price');
 
-            res.status(200).json({ consultations });
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
-
-    // Get Canceled Consultations
-    getCanceledConsultations: async (req, res) => {
-        try {
-            const consultant = await Consultant.findOne({ userId: req.user._id });
-            if (!consultant) {
-                return res.status(404).json({ error: 'Consultant profile not found' });
+            if (!consultation || consultation.consultantId.toString() !== consultant._id.toString()) {
+                return res.status(404).json({ error: 'Consultation not found or you are not authorized to view this consultation' });
             }
 
-            const consultations = await Consultation.find({ consultantId: consultant._id, status: 'canceled' })
-                .populate({
-                    path: 'clientId',
-                    populate: {
-                        path: 'userId',
-                        model: 'User',
-                        select: 'firstname lastname email'
-                    },
-                    select: 'companyName industry contactPerson'
-                })
-                .populate('serviceId', 'name description duration price');
-
-            res.status(200).json({ consultations });
+            res.status(200).render('consultants/consultationDetails', { consultation });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     },
-    // Approve a consultation request
+
+    // Approve a Consultation Request
     approveConsultation: async (req, res) => {
         try {
             const consultant = await Consultant.findOne({ userId: req.user._id });
             if (!consultant) {
-                return res.status(403).json({ error: 'You are not authorized to perform this action' });
+                return res.status(403).render('error', { err: { message: 'You are not authorized to perform this action', statusCode: 403 } });
             }
 
             const consultation = await Consultation.findById(req.params.id);
             if (!consultation || consultation.consultantId.toString() !== consultant._id.toString()) {
-                return res.status(404).json({ error: 'Consultation not found or you are not authorized to approve this consultation' });
+                return res.status(404).render('error', { err: { message: 'Consultation not found or you are not authorized to approve this consultation', statusCode: 404 } });
             }
 
             consultation.status = 'approved';
             await consultation.save();
-            res.status(200).json({ success: 'Consultation approved successfully', consultation });
+            res.status(200).redirect(`/insightserenity/consultant/consultations/${consultation._id}`);
         } catch (err) {
-            res.status(500).json({ error: err.message });
+            res.status(500).render('error', { err: { message: err.message, statusCode: 500 } });
         }
     },
 
-    // Cancel a consultation
+    // Cancel a Consultation
     cancelConsultation: async (req, res) => {
         try {
             const consultant = await Consultant.findOne({ userId: req.user._id });
             if (!consultant) {
-                return res.status(403).json({ error: 'You are not authorized to perform this action' });
+                return res.status(403).render('error', { err: { message: 'You are not authorized to perform this action', statusCode: 403 } });
             }
 
             const consultation = await Consultation.findById(req.params.id);
             if (!consultation || consultation.consultantId.toString() !== consultant._id.toString()) {
-                return res.status(404).json({ error: 'Consultation not found or you are not authorized to cancel this consultation' });
+                return res.status(404).render('error', { err: { message: 'Consultation not found or you are not authorized to cancel this consultation', statusCode: 404 } });
             }
 
             consultation.status = 'canceled';
             await consultation.save();
-            res.status(200).json({ success: 'Consultation canceled successfully', consultation });
+            res.status(200).redirect(`/insightserenity/consultant/consultations/${consultation._id}`);
         } catch (err) {
-            res.status(500).json({ error: err.message });
+            res.status(500).render('error', { err: { message: err.message, statusCode: 500 } });
         }
     },
 
-    // Reschedule a consultation
+    // Reschedule a Consultation
     rescheduleConsultation: async (req, res) => {
         try {
             const consultant = await Consultant.findOne({ userId: req.user._id });
             if (!consultant) {
-                return res.status(403).json({ error: 'You are not authorized to perform this action' });
+                return res.status(403).render('error', { err: { message: 'You are not authorized to perform this action', statusCode: 403 } });
             }
 
             const { date } = req.body;
             const consultation = await Consultation.findById(req.params.id);
             if (!consultation || consultation.consultantId.toString() !== consultant._id.toString()) {
-                return res.status(404).json({ error: 'Consultation not found or you are not authorized to reschedule this consultation' });
+                return res.status(404).render('error', { err: { message: 'Consultation not found or you are not authorized to reschedule this consultation', statusCode: 404 } });
             }
 
             consultation.date = date;
             consultation.status = 'pending'; // Set status back to pending for rescheduling
             await consultation.save();
-            res.status(200).json({ success: 'Consultation rescheduled successfully', consultation });
+            res.status(200).redirect(`/insightserenity/consultant/consultations/${consultation._id}`);
         } catch (err) {
-            res.status(500).json({ error: err.message });
+            res.status(500).render('error', { err: { message: err.message, statusCode: 500 } });
         }
     }
-
-    };
+};
 
 module.exports = consultantControllers;

@@ -132,7 +132,7 @@
 
       <div class="mt-4">
         <% if (currentUser && currentUser._id.equals(consultant.userId._id)) { %>
-          <a href="/insightserenity/consultant/<%= consultant._id %>/edit" class="btn btn-warning">Edit Profile</a>
+          <a href="/insightserenity/consultant/edit" class="btn btn-warning">Edit Profile</a>
           <form action="/insightserenity/consultant/<%= consultant._id %>?_method=DELETE" method="POST" class="d-inline">
               <button type="submit" class="btn btn-danger">Delete</button>
           </form>

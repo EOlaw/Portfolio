@@ -1,4 +1,4 @@
-<% layout('layouts/boilerplate')%>
+<% layout('layouts/boilerplate') %>
 
 <!-- Header Start -->
 <div class="container-fluid bg-black py-5 mb-5 page-header">
@@ -22,7 +22,7 @@
     <div class="container text-center">
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <% if (err.statusCode === 404) { %>
+                <% if (err && err.statusCode === 404) { %>
                     <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
                     <h1 class="display-1"><%= err.statusCode %></h1>
                     <h1 class="mb-4"><%= err.message %></h1>
@@ -30,8 +30,8 @@
                     <a class="btn btn-primary rounded-pill py-3 px-5" href="/">Go Back To Home</a>
                 <% } else { %>
                     <div class="alert alert-danger" role="alert">
-                        <h4 class="alert-heading"><%= err.message %></h4>
-                        <% if (process.env.NODE_ENV !== "production") { %>
+                        <h4 class="alert-heading"><%= err ? err.message : 'An unexpected error occurred' %></h4>
+                        <% if (err && process.env.NODE_ENV !== "production") { %>
                             <p><%= err.stack %></p>
                         <% } %>
                     </div>
@@ -40,7 +40,3 @@
         </div>
     </div>
 </div>
-
-
-
-

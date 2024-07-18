@@ -1,33 +1,35 @@
 const express = require('express');
 const router = express.Router();
 const consultantControllers = require('../controllers/consultantController');
-const { isAuthenticated, isConsultant, isClient } = require('../middleware/authMiddlewares');
+const { isAuthenticated, isConsultant } = require('../middleware/authMiddlewares');
 
 // Consultant Routes
-// Render form to update a consultant profile by ID
 router.route('/')
     .get(isAuthenticated, isConsultant, consultantControllers.getConsultantProfile)
-router.route('/:id/edit')
-    .get(isAuthenticated, isConsultant, consultantControllers.renderUpdateForm);
-router.route('/update')
-    .put(isAuthenticated, isConsultant, consultantControllers.updateConsultantProfile)
-// Consultant Routes
+    .put(isAuthenticated, isConsultant, consultantControllers.updateConsultantProfile);
+
+// Consultations Routes
 router.route('/consultations')
     .get(isAuthenticated, isConsultant, consultantControllers.getConsultations);
-router.route('/pending')
-    .get(isAuthenticated, isConsultant, consultantControllers.getPendingConsultations)
-router.route('/approved')
-    .get(isAuthenticated, isConsultant, consultantControllers.getApprovedConsultations)
-router.route('/canceled')
-    .get(isAuthenticated, isConsultant, consultantControllers.getCanceledConsultations)
-// Approve a consultation request
-router.route('/:id/approve')
+
+router.route('/consultations/:id/approve')
     .post(isAuthenticated, isConsultant, consultantControllers.approveConsultation);
-// Cancel a consultation
-router.route('/:id/cancel')
+
+router.route('/consultations/:id/cancel')
     .post(isAuthenticated, isConsultant, consultantControllers.cancelConsultation);
-// Reschedule a consultation
-router.route('/:id/reschedule')
+
+router.route('/consultations/:id/reschedule')
     .post(isAuthenticated, isConsultant, consultantControllers.rescheduleConsultation);
+
+// Render Edit Profile Form
+router.route('/edit')
+    .get(isAuthenticated, isConsultant, consultantControllers.renderEditProfileForm)
+    .post(isAuthenticated, isConsultant, consultantControllers.updateConsultantProfile);
+
+// Render Consultations Dashboard
+router.get('/dashboard', isAuthenticated, isConsultant, consultantControllers.renderConsultationsDashboard);
+
+// Render Consultation Details
+router.get('/consultations/:id', isAuthenticated, isConsultant, consultantControllers.renderConsultationDetails);
 
 module.exports = router;

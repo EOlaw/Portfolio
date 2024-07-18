@@ -6,6 +6,7 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+const ExpressError = require('./utils/ExpressError');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
@@ -90,10 +91,15 @@ app.use('/consultant', consultantRoutes);
 app.use('/consultation', consultationRoutes);
 app.use('/services', serviceRoutes);
 
-/*
-const port = process.env.PORT || 4000;
-app.listen(port, () => {
-    console.log(`Server started on ${port}`);
-});
-*/
+// Handle Error Page
+app.all('*', (req, res, next) => {
+    next(new ExpressError("Page Not Found", 404 ))
+})
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'Oh No, Something Went Wrong!'
+    res.status(statusCode).render('error', { err })
+})
+
 module.exports = app;
