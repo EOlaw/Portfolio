@@ -33,7 +33,7 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <h5 class="card-title"><%= consultation.serviceId.name %></h5>
-                            <p class="card-text">Client: <%= consultation.clientId.contactPerson %></p>
+                            <p class="card-text">Client: <%= consultation.clientId.userId.firstname %> <%= consultation.clientId.userId.lastname %></p>
                             <p class="card-text">Company: <%= consultation.clientId.companyName %></p>
                             <p class="card-text">Industry: <%= consultation.clientId.industry %></p>
                             <p class="card-text">Status: <%= consultation.status %></p>
