@@ -17,9 +17,8 @@ function checkContractorRole(req, res, next) {
 function isAuthenticated(req, res, next) {
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl
-        res.status(401).json({ error: 'You must be logged in to access this resource' });
         //req.flash('error', 'You must be signed in first!')
-        return res.redirect('/')
+        return res.redirect('/insightserenity/user/login')
     }
     next()
 }
@@ -102,7 +101,7 @@ function isClient(req, res, next) {
     } else {
         // If the user is not authenticated, redirect to the login page
         console.log('User is not authenticated. Redirecting to /user/login');
-        return res.status(401).json({ error: 'You must be logged in to access this resource' })
+        return res.status(401).render('error',{ error: 'You must be logged in to access this resource' })
         // res.status(401).redirect('/insightserenity/user/login');
     }
 }

@@ -1,0 +1,54 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Header Start -->
+<div class="container-fluid bg-black py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown"><%= service.name %></h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a class="text-white" href="/insightserenity/service">Services</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page"><%= service.name %></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- Service Details Section -->
+<section id="service-details" class="service-details">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2><%= service.name %></h2>
+            <p>Service Details</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card mb-5">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3 class="card-title mb-0"><%= service.name %></h3>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-subtitle mb-3">Description</h4>
+                        <p class="card-text"><%= service.description || 'No description available' %></p>
+                        <h4 class="card-subtitle mb-3">Details</h4>
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item"><strong>Duration:</strong> <%= service.duration %> minutes</li>
+                            <li class="list-group-item"><strong>Price:</strong> $<%= service.price.toFixed(2) %></li>
+                            <li class="list-group-item"><strong>Category:</strong> <%= service.category %></li>
+                        </ul>
+                        <a href="/insightserenity/booking/<%= service._id %>" class="btn btn-primary btn-block">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- End Service Details Section -->

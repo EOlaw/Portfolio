@@ -33,7 +33,7 @@
                     <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="<%= (services.indexOf(service) + 1) * 100 %>">
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-briefcase"></i></div>
-                            <h4><a href="/services/<%= service._id %>"><%= service.name %></a></h4>
+                            <h4><a href="/insightserenity/service/<%= service._id %>"><%= service.name %></a></h4>
                             <p><%= service.description || 'No description available' %></p>
                             <p><strong>Duration:</strong> <%= service.duration %> minutes</p>
                             <p><strong>Price:</strong> $<%= service.price.toFixed(2) %></p>

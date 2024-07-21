@@ -8,9 +8,10 @@ const clientControllers = {
     // Get Client Profile
     getClientProfile: async (req, res) => {
         try {
-            const client = await Client.findOne({ userId: req.user._id }).populate('userId');
+            const client = await Client.findOne({ userId: req.user._id }).populate('userId')
             if (!client) return res.status(404).json({ error: 'Client profile not found' });
-            res.render('clients/profile', { client })
+            const consultations = await Consultation.find({ clientId: client._id }).populate('serviceId')
+            res.render('clients/profile', { client, consultations })
             // res.status(200).json({ client });
         } catch (error) {
             res.status(500).json({ error: error.message });

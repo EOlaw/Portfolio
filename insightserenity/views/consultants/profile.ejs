@@ -53,18 +53,30 @@
 
       <div class="row">
         <div class="col-md-4 text-center">
-          <div class="profile-header">
-              <h5 class="card-title">Personal Information</h5>
-              <img src="<%= consultant.userId.profilePicture %>" alt="Profile Picture" class="profile-picture img-fluid">
-              <h1 class="h3"><%= consultant.userId.firstname %> <%= consultant.userId.lastname %></h1>
-              <p class="text-muted"><%= consultant.userId.email %></p>
-              <p class="card-text"><%= consultant.userId.contactNumber %></p>
+          <div class="card mt-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">Personal Information</h5>
+            </div>
+            <img src="<%= consultant.userId.profilePicture %>" alt="Profile Picture" class="profile-picture img-fluid">
+            <h1 class="h3"><%= consultant.userId.firstname %> <%= consultant.userId.lastname %></h1>
+            <p class="text-muted"><%= consultant.userId.email %></p>
+            <p class="card-text"><%= consultant.userId.contactNumber %></p>
+          </div>
+          <div class="mt-4">
+            <% if (currentUser && currentUser._id.equals(consultant.userId._id)) { %>
+              <a href="/insightserenity/consultant/edit" class="btn btn-warning">Edit Profile</a>
+              <form action="/insightserenity/consultant/<%= consultant._id %>?_method=DELETE" method="POST" class="d-inline">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+          <% } %>
           </div>
         </div>
+        
         <div class="col-md-8">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Consultant Details</h5>
+          <div class="card mt-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">Consultant Details</h5>
+            </div>
               <div class="table-responsive">
                 <table class="table table-striped">
                   <tbody>
@@ -111,33 +123,23 @@
                           <td><%= consultant.availability ? 'Available' : 'Not Available' %></td>
                       </tr>
                       <tr>
-                          <th scope="row">Rating</th>
-                          <td class="rating">
-                              <% for (let i = 0; i < 5; i++) { %>
-                                  <% if (i < consultant.rating) { %>
-                                      <span>&#9733;</span>
-                                  <% } else { %>
-                                      <span>&#9734;</span>
-                                  <% } %>
-                              <% } %>
-                          </td>
+                        <th scope="row">Rating</th>
+                        <td class="rating">
+                            <% for (let i = 0; i < 5; i++) { %>
+                                <% if (i < consultant.rating) { %>
+                                    <i class="fas fa-star"></i>
+                                <% } else { %>
+                                    <i class="far fa-star"></i>
+                                <% } %>
+                            <% } %>
+                        </td>
                       </tr>
                   </tbody>
               </table>
               </div>
               <p><a href="/insightserenity/consultant/consultations">Consultations</a></p>
-            </div>
           </div>
         </div>
-      </div>
-
-      <div class="mt-4">
-        <% if (currentUser && currentUser._id.equals(consultant.userId._id)) { %>
-          <a href="/insightserenity/consultant/edit" class="btn btn-warning">Edit Profile</a>
-          <form action="/insightserenity/consultant/<%= consultant._id %>?_method=DELETE" method="POST" class="d-inline">
-              <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-      <% } %>
       </div>
     </div>
 </main>

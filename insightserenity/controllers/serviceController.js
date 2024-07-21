@@ -27,7 +27,7 @@ const serviceController = {
         try {
             const service = await Service.findById(req.params.id);
             if (!service) return res.status(404).json({ error: 'Service not found' });
-            res.status(200).json({ service });
+            res.status(200).render('services/serviceDetails', { service });
         } catch (err) {
             res.status(500).json({ error: err.message });
         }

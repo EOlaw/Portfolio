@@ -1,0 +1,28 @@
+<style>
+  .profile-container {
+      margin-top: 50px;
+  }
+  .profile-header {
+      margin-bottom: 30px;
+  }
+  .profile-picture {
+      background-size: cover;
+      min-height: 400px;
+  }
+  .profile-info {
+      margin-bottom: 30px;
+  }
+  .rating span {
+      color: gold;
+      font-size: 1.5em;
+  }
+  a {
+      color: black;
+  }
+  a:hover {
+      color: #005582;
+  }
+  .table-responsive {
+      margin-top: 20px;
+  }
+</style>

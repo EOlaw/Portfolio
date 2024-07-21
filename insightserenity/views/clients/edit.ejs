@@ -54,63 +54,62 @@
     </style>
 </head>
 
-<header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center justify-content-lg-between">
+<header id="header" class="fixed-top bg-black">
+  <div class="container d-flex align-items-center justify-content-lg-between">
       <h1 class="logo me-auto me-lg-0"><a href="/insightserenity/">DF<span>.</span></a></h1>
       <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto active" href="/insightserenity/">Home</a></li>
-          <li><a class="nav-link scrollto" href="/insightserenity/about">About</a></li>
-          <li><a class="nav-link scrollto" href="/insightserenity/services">Services</a></li>
-          <li><a class="nav-link scrollto" href="/insightserenity/portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="/insightserenity/team">Team</a></li>
-          <li><a class="nav-link scrollto" href="/insightserenity/contact">Contact</a></li>
-          <% if (currentUser) { %>
-            <% if (currentUser.role === 'consultant') { %>
-              <li><a href="/insightserenity/consultant/" class="nav-link scrollto">Consultant Profile</a></li>
-              <li class="dropdown"><a href="#"><span>Welcome to DF, <%= currentUser.firstname %></span> <i class="bi bi-chevron-down"></i></a>
-                <ul>
-                  <li><a href="#">Profile</a></li>
-                  <li class="dropdown"><a href="#"><span>Help & Support</span> <i class="bi bi-chevron-right"></i></a>
-                    <ul>
-                      <li><a href="#">Help Center</a></li>
-                      <li><a href="#">Support Inbox</a></li>
-                      <li><a href="#">Report a problem</a></li>
-                      <li><a href="#">Terms & Policies</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Settings & Privacy</a></li>
-                  <li><a href="/user/logout" class="text-danger">Logout</a></li>
-                </ul>
-              </li>
-            <% } else if (currentUser.role === 'client') { %>
-              <li><a href="/insightserenity/client/" class="nav-link scrollto">Client Profile</a></li>
-              <li class="dropdown"><a href="#"><span>Welcome to DF, <%= currentUser.firstname %></span> <i class="bi bi-chevron-down"></i></a>
-                <ul>
-                  <li><a href="#">Profile</a></li>
-                  <li class="dropdown"><a href="#"><span>Help & Support</span> <i class="bi bi-chevron-right"></i></a>
-                    <ul>
-                      <li><a href="#">Help Center</a></li>
-                      <li><a href="#">Support Inbox</a></li>
-                      <li><a href="#">Report a problem</a></li>
-                      <li><a href="#">Terms & Policies</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Settings & Privacy</a></li>
-                  <li><a href="/user/logout" class="text-danger">Logout</a></li>
-                </ul>
-              </li>
-            <% } %>
-            <a href="/insightserenity/user/logout" class="text-danger">Logout</a>
-          <% } %>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+          <ul>
+              <li><a class="nav-link scrollto active" href="/insightserenity/">Home</a></li>
+              <li><a class="nav-link scrollto" href="/insightserenity/about">About</a></li>
+              <li><a class="nav-link scrollto" href="/insightserenity/services">Services</a></li>
+              <li><a class="nav-link scrollto" href="/insightserenity/portfolio">Portfolio</a></li>
+              <li><a class="nav-link scrollto" href="/insightserenity/team">Team</a></li>
+              <li><a class="nav-link scrollto" href="/insightserenity/contact">Contact</a></li>
+              <% if (currentUser) { %>
+                  <% if (currentUser.role === 'consultant') { %>
+                      <li><a href="/insightserenity/consultant/" class="nav-link scrollto">Consultant Profile</a></li>
+                      <li class="dropdown"><a href="#"><span>Welcome to DF, <%= currentUser.firstname %></span> <i class="bi bi-chevron-down"></i></a>
+                          <ul>
+                              <li><a href="#">Profile</a></li>
+                              <li class="dropdown"><a href="#"><span>Help & Support</span> <i class="bi bi-chevron-right"></i></a>
+                                  <ul>
+                                      <li><a href="#">Help Center</a></li>
+                                      <li><a href="#">Support Inbox</a></li>
+                                      <li><a href="#">Report a problem</a></li>
+                                      <li><a href="#">Terms & Policies</a></li>
+                                  </ul>
+                              </li>
+                              <li><a href="#">Settings & Privacy</a></li>
+                              <li><a href="/insightserenity/user/logout" class="text-danger">Logout</a></li>
+                          </ul>
+                      </li>
+                  <% } else if (currentUser.role === 'client') { %>
+                      <li><a href="/insightserenity/client/" class="nav-link scrollto">Client Profile</a></li>
+                      <li class="dropdown"><a href="#"><span>Welcome to DF, <%= currentUser.firstname %></span> <i class="bi bi-chevron-down"></i></a>
+                          <ul>
+                              <li><a href="#">Profile</a></li>
+                              <li class="dropdown"><a href="#"><span>Help & Support</span> <i class="bi bi-chevron-right"></i></a>
+                                  <ul>
+                                      <li><a href="#">Help Center</a></li>
+                                      <li><a href="#">Support Inbox</a></li>
+                                      <li><a href="#">Report a problem</a></li>
+                                      <li><a href="#">Terms & Policies</a></li>
+                                  </ul>
+                              </li>
+                              <li><a href="#">Settings & Privacy</a></li>
+                              <li><a href="/insightserenity/user/logout" class="text-danger">Logout</a></li>
+                          </ul>
+                      </li>
+                  <% } %>
+              <% } %>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
       <% if (!currentUser) { %>
-        <a href="/insightserenity/user/login" class="get-started-btn scrollto">Login</a>
-        <a href="/insightserenity/user/register" class="get-started-btn scrollto">Get Started</a>
+          <a href="/insightserenity/user/login" class="get-started-btn scrollto">Login</a>
+          <a href="/insightserenity/user/register" class="get-started-btn scrollto">Get Started</a>
       <% } %>
-    </div>
+  </div>
 </header>
 
 <!-- Header Start -->
