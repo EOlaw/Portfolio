@@ -16,7 +16,7 @@ const serviceController = {
     getAllServices: async (req, res) => {
         try {
             const services = await Service.find();
-            res.status(200).json({ services });
+            res.status(200).render('services/service', { services });
         } catch (err) {
             res.status(500).json({ error: err.message });
         }

@@ -24,7 +24,36 @@
 
     <!-- Template Main CSS File -->
     <link href="/insightserenity/public/css/style.css" rel="stylesheet">
+    <style>
+      .profile-container {
+          margin-top: 50px;
+      }
+      .profile-header {
+          margin-bottom: 30px;
+      }
+      .profile-picture {
+          background-size: cover;
+          min-height: 400px;
+      }
+      .profile-info {
+          margin-bottom: 30px;
+      }
+      .rating span {
+          color: gold;
+          font-size: 1.5em;
+      }
+      a {
+          color: black;
+      }
+      a:hover {
+          color: #005582;
+      }
+      .table-responsive {
+          margin-top: 20px;
+      }
+    </style>
 </head>
+
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center justify-content-lg-between">
       <h1 class="logo me-auto me-lg-0"><a href="/insightserenity/">DF<span>.</span></a></h1>
@@ -83,98 +112,81 @@
       <% } %>
     </div>
 </header>
-  
+
 <!-- Header Start -->
 <div class="container-fluid bg-black py-5 mb-5 page-header">
-  <div class="container py-5">
-      <div class="row justify-content-center">
-          <div class="col-lg-10 text-center">
-              <h1 class="display-3 text-white animated slideInDown">Client Profile</h1>
-              <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb justify-content-center">
-                      <li class="breadcrumb-item"><a class="text-white" href="/insightserenity">Home</a></li>
-                      <li class="breadcrumb-item text-white active" aria-current="page">Client Profile</li>
-                  </ol>
-              </nav>
-          </div>
-      </div>
-  </div>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Edit Profile</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a class="text-white" href="/insightserenity/client/">Client Profile</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Edit Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 </div>
-
-<style>
-  .profile-container {
-      margin-top: 50px;
-  }
-  .profile-header {
-      margin-bottom: 30px;
-  }
-  .profile-picture {
-      background-size: cover;
-      min-height: 400px;
-  }
-  .profile-info {
-      margin-bottom: 30px;
-  }
-  .rating span {
-      color: gold;
-      font-size: 1.5em;
-  }
-  a {
-      color: black;
-  }
-  a:hover {
-      color: #005582;
-  }
-  .table-responsive {
-      margin-top: 20px;
-  }
-</style>
+<!-- Header End -->
 
 <main id="main" style="margin-top: 100px;">
-  <div class="container">
-    <div class="section-title">
-      <h2>Client Profile</h2>
-      <p>View and manage your profile information</p>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4 text-center">
-        <div class="profile-header">
-            <h5 class="card-title">Personal Information</h5>
-            <img src="<%= client.userId.profilePicture %>" alt="Profile Picture" class="profile-picture img-fluid">
-            <h1 class="h3"><%= client.userId.firstname %> <%= client.userId.lastname %></h1>
-            <p class="text-muted"><%= client.userId.email %></p>
-            <p class="card-text"><%= client.userId.contactNumber %></p>
+    <div class="container">
+        <div class="section-title">
+            <h2>Edit Client Profile</h2>
+            <p>Update your information</p>
         </div>
-      </div>
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Client Details</h5>
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <tbody>
-                    <tr>
-                      <th scope="row">Industry</th>
-                      <td><%= client.industry %></td>
-                    </tr>
-                </tbody>
-            </table>
+
+        <form action="/insightserenity/client/edit?_method=PUT" method="POST">
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <label for="firstname" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" value="<%= client.userId.firstname %>" required>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="lastname" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" value="<%= client.userId.lastname %>" required>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<%= client.userId.email %>" required>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="contactNumber" class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" id="contactNumber" name="contactNumber" value="<%= client.userId.contactNumber %>">
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="profilePicture" class="form-label">Profile Picture URL</label>
+                    <input type="text" class="form-control" id="profilePicture" name="profilePicture" value="<%= client.userId.profilePicture %>">
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="companyName" class="form-label">Company Name</label>
+                    <input type="text" class="form-control" id="companyName" name="companyName" value="<%= client.companyName %>">
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="industry" class="form-label">Industry</label>
+                    <input type="text" class="form-control" id="industry" name="industry" value="<%= client.industry %>">
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="contactPerson" class="form-label">Contact Person</label>
+                    <input type="text" class="form-control" id="contactPerson" name="contactPerson" value="<%= client.contactPerson %>">
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="address" name="address" value="<%= client.address %>">
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <label for="website" class="form-label">Website</label>
+                    <input type="text" class="form-control" id="website" name="website" value="<%= client.website %>">
+                </div>
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-4">
-      <% if (currentUser && currentUser._id.equals(client.userId._id)) { %>
-        <a href="/insightserenity/client/edit" class="btn btn-warning">Edit Profile</a>
-        <form action="/insightserenity/client/<%= client._id %>?_method=DELETE" method="POST" class="d-inline">
-            <button type="submit" class="btn btn-danger">Delete</button>
         </form>
-    <% } %>
     </div>
-  </div>
 </main>
 
 

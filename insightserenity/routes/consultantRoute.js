@@ -6,7 +6,6 @@ const { isAuthenticated, isConsultant } = require('../middleware/authMiddlewares
 // Consultant Routes
 router.route('/')
     .get(isAuthenticated, isConsultant, consultantControllers.getConsultantProfile)
-    .put(isAuthenticated, isConsultant, consultantControllers.updateConsultantProfile);
 
 // Consultations Routes
 router.route('/consultations')
@@ -24,7 +23,7 @@ router.route('/consultations/:id/reschedule')
 // Render Edit Profile Form
 router.route('/edit')
     .get(isAuthenticated, isConsultant, consultantControllers.renderEditProfileForm)
-    .post(isAuthenticated, isConsultant, consultantControllers.updateConsultantProfile);
+    .put(isAuthenticated, isConsultant, consultantControllers.updateConsultantProfile);
 
 // Render Consultations Dashboard
 router.get('/dashboard', isAuthenticated, isConsultant, consultantControllers.renderConsultationsDashboard);

@@ -17,7 +17,7 @@ const User = require('./models/userModel');
 const dbUrl = process.env.DB_URL_INSIGHTSERENITY || 'mongodb+srv://EOlaw146:Olawalee_.146@cluster0.4wv68hn.mongodb.net/InsightSerenity?retryWrites=true&w=majority';
 const secret = process.env.SECRET || 'p2xv8BGCmMmIYN1UkFVfrVRZBxeYKr11vLZTfqEMwaE=';
 
-// const homeRoutes = require('./routes/homeRoutes');
+const homeRoutes = require('./routes/homeRoute');
 const userRoutes = require('./routes/userRoute');
 const clientRoutes = require('./routes/clientRoute');
 const consultantRoutes = require('./routes/consultantRoute');
@@ -79,17 +79,13 @@ app.use(async (req, res, next) => {
     next();
 });
 
-app.get('/', (req, res) => {
-    res.render('home/main')
-});
-
 // Handle Routes
-// app.use('/', homeRoutes);
+app.use('/', homeRoutes);
 app.use('/user', userRoutes);
 app.use('/client', clientRoutes);
 app.use('/consultant', consultantRoutes);
 app.use('/consultation', consultationRoutes);
-app.use('/services', serviceRoutes);
+app.use('/service', serviceRoutes);
 
 // Handle Error Page
 app.all('*', (req, res, next) => {

@@ -1,3 +1,4 @@
+const User = require('../models/userModel');
 const Consultant = require('../models/consultantModel');
 const Consultation = require('../models/consultationModel');
 const Service = require('../models/serviceModel');
@@ -59,8 +60,29 @@ const consultantControllers = {
     // Update Consultant Profile
     updateConsultantProfile: async (req, res) => {
         try {
-            const consultant = await Consultant.findOneAndUpdate({ userId: req.user._id }, req.body, { new: true, runValidators: true });
-            if (!consultant) return res.status(404).render('error', { err: { message: 'Consultant profile not found', statusCode: 404 } });
+            const { firstname, lastname, email, contactNumber, profilePicture, specializations, experienceYears, bio, certifications, linkedInProfile, availability } = req.body;
+    
+            // Update User info
+            const user = await User.findByIdAndUpdate(req.user._id, {
+                firstname,
+                lastname,
+                email,
+                contactNumber,
+                profilePicture
+            }, { new: true, runValidators: true });
+    
+            // Update Consultant profile
+            const consultant = await Consultant.findOneAndUpdate({ userId: req.user._id }, {
+                specializations: specializations.split(',').map(spec => spec.trim()),
+                experienceYears,
+                bio,
+                certifications: certifications.split(',').map(cert => cert.trim()),
+                linkedInProfile,
+                availability: availability === 'true'
+            }, { new: true, runValidators: true });
+    
+            if (!user || !consultant) return res.status(404).render('error', { err: { message: 'Profile not found', statusCode: 404 } });
+    
             res.status(200).redirect(`/insightserenity/consultant/`);
         } catch (error) {
             res.status(500).render('error', { err: { message: error.message, statusCode: 500 } });

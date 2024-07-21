@@ -1,0 +1,54 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Header Start -->
+<div class="container-fluid bg-black py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Services</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="/">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Services</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- ======= Services Section ======= -->
+<section id="services" class="services">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Services</h2>
+            <p>Check our Services</p>
+        </div>
+
+        <% if (services.length > 0) { %>
+            <div class="row">
+                <% services.forEach(service => { %>
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="<%= (services.indexOf(service) + 1) * 100 %>">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-briefcase"></i></div>
+                            <h4><a href="/services/<%= service._id %>"><%= service.name %></a></h4>
+                            <p><%= service.description || 'No description available' %></p>
+                            <p><strong>Duration:</strong> <%= service.duration %> minutes</p>
+                            <p><strong>Price:</strong> $<%= service.price.toFixed(2) %></p>
+                            <p><strong>Category:</strong> <%= service.category %></p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="alert alert-info text-center">
+                <h4>No services available at the moment</h4>
+                <p>We are working hard to add more services soon. Please check back later!</p>
+            </div>
+        <% } %>
+
+    </div>
+</section><!-- End Services Section -->
+
