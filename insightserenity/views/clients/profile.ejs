@@ -61,7 +61,7 @@
             <ul>
                 <li><a class="nav-link scrollto active" href="/insightserenity/">Home</a></li>
                 <li><a class="nav-link scrollto" href="/insightserenity/about">About</a></li>
-                <li><a class="nav-link scrollto" href="/insightserenity/services">Services</a></li>
+                <li><a class="nav-link scrollto" href="/insightserenity/service">Services</a></li>
                 <li><a class="nav-link scrollto" href="/insightserenity/portfolio">Portfolio</a></li>
                 <li><a class="nav-link scrollto" href="/insightserenity/team">Team</a></li>
                 <li><a class="nav-link scrollto" href="/insightserenity/contact">Contact</a></li>
@@ -129,89 +129,119 @@
       </div>
     </div>
 
-  <!-- Main Start -->
-  <main id="main" style="margin-top: 100px;">
-    <div class="container">
-        <div class="section-title">
-            <h2>Client Profile</h2>
-            <p>View and manage your profile information</p>
-        </div>
-
-        <div class="row">
-            <!-- Personal Information Section -->
-            <div class="col-md-4 text-center">
-                <aside style="top: 100px;">
-                    <div class="card mb-3">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="card-title mb-0">Personal Information</h5>
-                        </div>
-                        <div class="card-body text-center">
-                            <img src="<%= client.userId.profilePicture %>" alt="Profile Picture" class="profile-picture img-fluid">
-                            <h5 class="card-title mt-3"><%= client.userId.firstname %> <%= client.userId.lastname %></h5>
-                            <p class="card-text"><%= client.userId.email %></p>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                      <% if (currentUser && currentUser._id.equals(client.userId._id)) { %>
-                          <a href="/insightserenity/client/edit" class="btn btn-warning">Edit Profile</a>
-                          <form action="/insightserenity/client/<%= client._id %>?_method=DELETE" method="POST" class="d-inline">
-                              <button type="submit" class="btn btn-danger">Delete</button>
-                          </form>
-                      <% } %>
-                  </div>
-                </aside>
+    <!-- Main Start -->
+    <main id="main" style="margin-top: 100px;">
+        <div class="container">
+            <div class="section-title">
+                <h2>Client Profile</h2>
+                <p>View and manage your profile information</p>
             </div>
-            <!-- End Personal Information Section -->
 
-            <!-- Main Content Section -->
-            <div class="col-md-8">
-                <div class="card mt-4">
-                        <div class="card-header bg-primary text-white">
-                          <h5 class="card-title mb-0">Client Details</h5>
+            <div class="row">
+                <!-- Personal Information Section -->
+                <div class="col-md-4 text-center">
+                    <aside style="top: 100px;">
+                        <div class="card mb-3">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="card-title mb-0">Personal Information</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <img src="<%= client.userId.profilePicture %>" alt="Profile Picture" class="profile-picture img-fluid">
+                                <h5 class="card-title mt-3"><%= client.userId.firstname %> <%= client.userId.lastname %></h5>
+                                <p class="card-text"><%= client.userId.email %></p>
+                            </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Industry</th>
-                                        <td><%= client.industry %></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row"><a href="/insightserenity/consultation/create" class="btn btn-warning">Book Consultation</a></th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                </div>
-
-                <!-- Consultation History Section -->
-                <div class="card mt-4">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0">Consultation History</h5>
-                    </div>
-                    <div class="card-body">
-                        <% if (consultations.length > 0) { %>
-                            <ul class="list-group">
-                                <% consultations.forEach(consultation => { %>
-                                    <li class="list-group-item">
-                                        <strong>Name:</strong> <%= consultation.serviceId.name %> <br>
-                                        <strong>Date:</strong> <%= consultation.date.toLocaleDateString() %> <br>
-                                        <strong>Status:</strong> <%= consultation.status %>
-                                    </li>
-                                <% }) %>
-                            </ul>
-                        <% } else { %>
-                            <p class="text-muted">No consultations found.</p>
+                        <div class="mt-4">
+                        <% if (currentUser && currentUser._id.equals(client.userId._id)) { %>
+                            <a href="/insightserenity/client/edit" class="btn btn-warning">Edit Profile</a>
+                            <form action="/insightserenity/client/<%= client._id %>?_method=DELETE" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         <% } %>
                     </div>
+                    </aside>
                 </div>
-                <!-- End Consultation History Section -->
+                <!-- End Personal Information Section -->
+
+                <!-- Main Content Section -->
+                <div class="col-md-8">
+                    <div class="card mt-4">
+                            <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">Client Details</h5>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Company Name</th>
+                                            <td><%= client.companyName %></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Industry</th>
+                                            <td><%= client.industry %></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Contact Person</th>
+                                            <td><%= client.contactPerson %></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Address</th>
+                                            <td><%= client.address %></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Website</th>
+                                            <td>
+                                                <% 
+                                                let websiteUrl = client.website;
+                                                // Check if the URL does not start with http:// or https://
+                                                if (!/^https?:\/\//i.test(websiteUrl)) {
+                                                    websiteUrl = 'http://' + websiteUrl; // Default to http://
+                                                }
+                                                %>
+                                                <a href="<%= websiteUrl %>" target="_blank" rel="noopener noreferrer"><%= client.website %></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row"><a href="/insightserenity/consultation/create" class="btn btn-warning">Book Consultation</a></th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                    </div>
+
+                    <!-- Consultation History Section -->
+                    <div class="card mt-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">Consultation History</h5>
+                        </div>
+                        <div class="card-body">
+                            <% if (consultations.length > 0) { %>
+                                <ul class="list-group">
+                                    <% consultations.forEach(consultation => { %>
+                                        <li class="list-group-item">
+                                            <strong>Name:</strong> <a href="/insightserenity/service/<%= consultation.serviceId._id %>"><%= consultation.serviceId.name %></a> <br>
+                                            <strong>Date:</strong> <%= consultation.date.toLocaleDateString() %> <br>
+                                            <strong>Status:</strong> <%= consultation.status %> <br>
+                                            <a href="/insightserenity/consultation/<%= consultation._id %>/edit" class="btn btn-warning btn-sm">Edit</a>
+                                            <form action="/insightserenity/consultation/<%= consultation._id %>?_method=DELETE" method="POST" class="d-inline">
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </li>
+                                    <% }) %>
+                                </ul>
+                            <% } else { %>
+                                <p class="text-muted">No consultations found.</p>
+                            <% } %>
+                        </div>
+                    </div>
+                    <!-- End Consultation History Section -->
+                </div>
+                <!-- End Main Content Section -->
             </div>
-            <!-- End Main Content Section -->
         </div>
-    </div>
-  </main>
-  <!-- Main End -->
+    </main>
+    <!-- Main End -->
+
 
 
   <!-- ======= Footer ======= -->

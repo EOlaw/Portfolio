@@ -77,7 +77,8 @@ const consultationController = {
             });
     
             await consultation.save();
-            res.status(201).json({ success: 'Consultation created successfully', consultation });
+            res.status(201).redirect('/insightserenity/client/')
+            // res.status(201).json({ success: 'Consultation created successfully', consultation });
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
@@ -123,7 +124,8 @@ const consultationController = {
         try {
             const consultation = await Consultation.findByIdAndDelete(req.params.id);
             if (!consultation) return res.status(404).json({ error: 'Consultation not found' });
-            res.status(200).json({ success: 'Consultation deleted successfully' });
+            res.status(200).redirect('/insightserenity/client/')
+            // res.status(200).json({ success: 'Consultation deleted successfully' });
         } catch (err) {
             res.status(500).json({ error: err.message });
         }

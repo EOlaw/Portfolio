@@ -21,7 +21,7 @@ router.route('/')
     .get(userControllers.getUsers)
 
 router.route('/:id')
-    .get(isAuthenticated, userControllers.getUser)
+    // .get(isAuthenticated, userControllers.getUser)
     .put(isAuthenticated, userControllers.updateUserAccount)
     .delete(isAuthenticated, userControllers.deleteUserAccount)
 

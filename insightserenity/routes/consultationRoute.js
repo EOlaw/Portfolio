@@ -13,6 +13,6 @@ router.route('/')
 router.route('/:id')
     .get(isAuthenticated, consultationControllers.getConsultationById)
     .put(isAuthenticated, consultationControllers.updateConsultation)
-    .delete(consultationControllers.deleteConsultation)
+    .delete(isAuthenticated, consultationControllers.deleteConsultation)
 
 module.exports = router;

@@ -1139,6 +1139,19 @@ section {
 .team .member .member-img {
   position: relative;
   overflow: hidden;
+  width: 306px;  /* Set the width */
+  height: 306px; /* Set the height */
+}
+
+.team .member .member-img img {
+  width: 100%;        /* Ensure the image covers the container width */
+  height: 100%;       /* Ensure the image covers the container height */
+  object-fit: cover;  /* Cover the container, maintaining aspect ratio and cropping if necessary */
+  transition: transform 0.3s ease;  /* Add transition for smooth zoom effect */
+}
+
+.team .member .member-img:hover img {
+  transform: scale(1.1);  /* Zoom in the image on hover */
 }
 
 .team .member .social {

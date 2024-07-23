@@ -20,6 +20,18 @@ const userControllers = {
             console.log('Request body:', req.body);
             const { firstname, lastname, email, role, contactNumber, profilePicture, username, password } = req.body;
 
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                return res.status(400).json({ error: 'Invalid email format' });
+            }
+
+            // Validate password format
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?]).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                return res.status(400).json({ error: 'Password must be at least 8 characters long and include uppercase, lowercase, numbers, and special characters.' });
+            }
+
             // Validate role
             if (!role || (role !== 'client' && role !== 'consultant')) {
                 return res.status(400).json({ error: 'Invalid role specified' });
@@ -39,8 +51,14 @@ const userControllers = {
 
             req.login(user, err => {
                 if (err) return next(err);
-                console.log(user);
-                res.redirect(`/insightserenity/user/${user._id}`);
+                // Redirect based on role
+                if (user.role === 'consultant') {
+                    res.redirect(`/insightserenity/consultant/`);
+                } else if (user.role === 'client') {
+                    res.redirect(`/insightserenity/client/`);
+                } else {
+                    res.redirect(`/insightserenity/`);
+                }
             });
         } catch (err) {
             console.log(err);
@@ -102,7 +120,7 @@ const userControllers = {
             res.status(400).json({ error: err.message });
         }
     },
-
+    /*
     // Get User Profile
     getUser: async (req, res) => {
         try {
@@ -128,7 +146,7 @@ const userControllers = {
             res.status(400).json({ error });
         }
     },
-
+    */
     // Update User Account
     updateUserAccount: async (req, res) => {
         try {
