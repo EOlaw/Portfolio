@@ -406,7 +406,7 @@ h6 {
 #hero {
   width: 100%;
   min-height: 100vh;
-  background: url("../lib/img/hero-bg.jpg") top center;
+  background: url("../lib/img/home.jpeg") top center;
   background-size: cover;
   position: relative;
 }
