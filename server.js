@@ -30,7 +30,7 @@ app.use('/insightserenity', insightserenity);
 // app.use('/university', university);
 app.use('/telecom', telecom);
 
-port = 3000
-app.listen(port, () => {
-    console.log(`Serving on port ${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Serving on port ${PORT}`);
 });
