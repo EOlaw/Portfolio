@@ -5,6 +5,7 @@ const Consultation = require('../models/consultationModel');
 const Service = require('../models/serviceModel');
 
 const clientControllers = {
+    /*
     // Get Client Profile
     getClientProfile: async (req, res) => {
         try {
@@ -18,11 +19,25 @@ const clientControllers = {
             res.status(500).json({ error: error.message });
         }
     },
+    */
+    // Get Client Profile
+    getClientProfile: async (req, res) => {
+        try {
+            const co = await Client.findOne({ userId: req.user._id }).populate('userId')
+            if (!co) return res.status(404).json({ error: 'Client profile not found' });
+            const consultations = await Consultation.find({ clientId: co._id }).populate('serviceId')
+            
+            res.render('clients/profile', { co, consultations})
+            // res.status(200).json({ client });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
     renderEditProfileForm: async (req, res) => {
         try {
-            const client = await Client.findOne({ userId: req.user._id }).populate('userId');
-            if (!client) return res.status(404).json({ error: 'Client profile not found' });
-            res.status(200).render('clients/edit', { client });
+            const co = await Client.findOne({ userId: req.user._id }).populate('userId');
+            if (!co) return res.status(404).json({ error: 'Client profile not found' });
+            res.status(200).render('clients/edit', { co });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

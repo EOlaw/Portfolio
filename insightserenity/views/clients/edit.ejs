@@ -1,116 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Data-Forage Consultation</title>
-   
-    <!-- Favicons -->
-    <link href="/insightserenity/public/lib/img/favicon.png" rel="icon">
-    <link href="/insightserenity/public/lib/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="/insightserenity/public/lib/vendor/aos/aos.css" rel="stylesheet">
-    <link href="/insightserenity/public/lib/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/insightserenity/public/lib/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/insightserenity/public/lib/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="/insightserenity/public/lib/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="/insightserenity/public/lib/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="/insightserenity/public/lib/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="/insightserenity/public/css/style.css" rel="stylesheet">
-    <style>
-      .profile-container {
-          margin-top: 50px;
-      }
-      .profile-header {
-          margin-bottom: 30px;
-      }
-      .profile-picture {
-          background-size: cover;
-          min-height: 400px;
-      }
-      .profile-info {
-          margin-bottom: 30px;
-      }
-      .rating span {
-          color: gold;
-          font-size: 1.5em;
-      }
-      a {
-          color: black;
-      }
-      a:hover {
-          color: #005582;
-      }
-      .table-responsive {
-          margin-top: 20px;
-      }
-    </style>
-</head>
-
-<header id="header" class="fixed-top bg-black">
-  <div class="container d-flex align-items-center justify-content-lg-between">
-      <h1 class="logo me-auto me-lg-0"><a href="/insightserenity/">DF<span>.</span></a></h1>
-      <nav id="navbar" class="navbar order-last order-lg-0">
-          <ul>
-              <li><a class="nav-link scrollto active" href="/insightserenity/">Home</a></li>
-              <li><a class="nav-link scrollto" href="/insightserenity/about">About</a></li>
-              <li><a class="nav-link scrollto" href="/insightserenity/services">Services</a></li>
-              <li><a class="nav-link scrollto" href="/insightserenity/portfolio">Portfolio</a></li>
-              <li><a class="nav-link scrollto" href="/insightserenity/team">Team</a></li>
-              <li><a class="nav-link scrollto" href="/insightserenity/contact">Contact</a></li>
-              <% if (currentUser) { %>
-                  <% if (currentUser.role === 'consultant') { %>
-                      <li><a href="/insightserenity/consultant/" class="nav-link scrollto">Consultant Profile</a></li>
-                      <li class="dropdown"><a href="#"><span>Welcome to DF, <%= currentUser.firstname %></span> <i class="bi bi-chevron-down"></i></a>
-                          <ul>
-                              <li><a href="#">Profile</a></li>
-                              <li class="dropdown"><a href="#"><span>Help & Support</span> <i class="bi bi-chevron-right"></i></a>
-                                  <ul>
-                                      <li><a href="#">Help Center</a></li>
-                                      <li><a href="#">Support Inbox</a></li>
-                                      <li><a href="#">Report a problem</a></li>
-                                      <li><a href="#">Terms & Policies</a></li>
-                                  </ul>
-                              </li>
-                              <li><a href="#">Settings & Privacy</a></li>
-                              <li><a href="/insightserenity/user/logout" class="text-danger">Logout</a></li>
-                          </ul>
-                      </li>
-                  <% } else if (currentUser.role === 'client') { %>
-                      <li><a href="/insightserenity/client/" class="nav-link scrollto">Client Profile</a></li>
-                      <li class="dropdown"><a href="#"><span>Welcome to DF, <%= currentUser.firstname %></span> <i class="bi bi-chevron-down"></i></a>
-                          <ul>
-                              <li><a href="#">Profile</a></li>
-                              <li class="dropdown"><a href="#"><span>Help & Support</span> <i class="bi bi-chevron-right"></i></a>
-                                  <ul>
-                                      <li><a href="#">Help Center</a></li>
-                                      <li><a href="#">Support Inbox</a></li>
-                                      <li><a href="#">Report a problem</a></li>
-                                      <li><a href="#">Terms & Policies</a></li>
-                                  </ul>
-                              </li>
-                              <li><a href="#">Settings & Privacy</a></li>
-                              <li><a href="/insightserenity/user/logout" class="text-danger">Logout</a></li>
-                          </ul>
-                      </li>
-                  <% } %>
-              <% } %>
-          </ul>
-          <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-      <% if (!currentUser) { %>
-          <a href="/insightserenity/user/login" class="get-started-btn scrollto">Login</a>
-          <a href="/insightserenity/user/register" class="get-started-btn scrollto">Get Started</a>
-      <% } %>
-  </div>
-</header>
+<% layout('layouts/boilerplate') %>
 
 <!-- Header Start -->
 <div class="container-fluid bg-black py-5 mb-5 page-header">
@@ -142,43 +30,43 @@
             <div class="row">
                 <div class="col-lg-6 mb-3">
                     <label for="firstname" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="firstname" name="firstname" value="<%= client.userId.firstname %>" required>
+                    <input type="text" class="form-control" id="firstname" name="firstname" value="<%= co.userId.firstname %>" required>
                 </div>
                 <div class="col-lg-6 mb-3">
                     <label for="lastname" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="lastname" name="lastname" value="<%= client.userId.lastname %>" required>
+                    <input type="text" class="form-control" id="lastname" name="lastname" value="<%= co.userId.lastname %>" required>
                 </div>
                 <div class="col-lg-6 mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="<%= client.userId.email %>" required>
+                    <input type="email" class="form-control" id="email" name="email" value="<%= co.userId.email %>" required>
                 </div>
                 <div class="col-lg-6 mb-3">
                     <label for="contactNumber" class="form-label">Contact Number</label>
-                    <input type="text" class="form-control" id="contactNumber" name="contactNumber" value="<%= client.userId.contactNumber %>">
+                    <input type="text" class="form-control" id="contactNumber" name="contactNumber" value="<%= co.userId.contactNumber %>">
                 </div>
                 <div class="col-lg-6 mb-3">
                     <label for="profilePicture" class="form-label">Profile Picture URL</label>
-                    <input type="text" class="form-control" id="profilePicture" name="profilePicture" value="<%= client.userId.profilePicture %>">
+                    <input type="text" class="form-control" id="profilePicture" name="profilePicture" value="<%= co.userId.profilePicture %>">
                 </div>
                 <div class="col-lg-6 mb-3">
                     <label for="companyName" class="form-label">Company Name</label>
-                    <input type="text" class="form-control" id="companyName" name="companyName" value="<%= client.companyName %>">
+                    <input type="text" class="form-control" id="companyName" name="companyName" value="<%= co.companyName %>">
                 </div>
                 <div class="col-lg-6 mb-3">
                     <label for="industry" class="form-label">Industry</label>
-                    <input type="text" class="form-control" id="industry" name="industry" value="<%= client.industry %>">
+                    <input type="text" class="form-control" id="industry" name="industry" value="<%= co.industry %>">
                 </div>
                 <div class="col-lg-6 mb-3">
                     <label for="contactPerson" class="form-label">Contact Person</label>
-                    <input type="text" class="form-control" id="contactPerson" name="contactPerson" value="<%= client.contactPerson %>">
+                    <input type="text" class="form-control" id="contactPerson" name="contactPerson" value="<%= co.contactPerson %>">
                 </div>
                 <div class="col-lg-6 mb-3">
                     <label for="address" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="address" name="address" value="<%= client.address %>">
+                    <input type="text" class="form-control" id="address" name="address" value="<%= co.address %>">
                 </div>
                 <div class="col-lg-6 mb-3">
                     <label for="website" class="form-label">Website</label>
-                    <input type="text" class="form-control" id="website" name="website" value="<%= client.website %>">
+                    <input type="text" class="form-control" id="website" name="website" value="<%= co.website %>">
                 </div>
                 <div class="col-12 text-center">
                     <button type="submit" class="btn btn-primary">Update Profile</button>
@@ -188,98 +76,3 @@
     </div>
 </main>
 
-
-<!-- ======= Footer ======= -->
-<footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-info">
-              <h3>Gp<span>.</span></h3>
-              <p>
-                A108 Adam Street <br>
-                NY 535022, USA<br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> info@example.com<br>
-              </p>
-              <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-4 col-md-6 footer-newsletter">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Gp</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-</footer><!-- End Footer -->
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" 
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-<!-- Vendor JS Files -->
-<script src="/insightserenity/public/lib/vendor/purecounter/purecounter_vanilla.js"></script>
-<script src="/insightserenity/public/lib/vendor/aos/aos.js"></script>
-<script src="/insightserenity/public/lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/insightserenity/public/lib/vendor/glightbox/js/glightbox.min.js"></script>
-<script src="/insightserenity/public/lib/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-<script src="/insightserenity/public/lib/vendor/swiper/swiper-bundle.min.js"></script>
-<script src="/insightserenity/public/lib/vendor/waypoints/noframework.waypoints.js"></script>
-<script src="/insightserenity/public/lib/vendor/php-email-form/validate.js"></script>
-
-<!-- Template Main JS File -->
-<script src="/insightserenity/public/lib/js/main.js"></script>

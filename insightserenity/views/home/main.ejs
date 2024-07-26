@@ -1,5 +1,24 @@
 <% layout('layouts/boilerplate') %>
 
+<style>
+  .btn-yellow {
+    background-color: #FFD700; /* Gold color */
+    border: none;
+    color: #000; /* Black text */
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.btn-yellow:hover {
+    background-color: #ffcc00; /* Darker yellow on hover */
+}
+</style>
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center justify-content-center">
   <div class="container" data-aos="fade-up">
@@ -37,72 +56,171 @@
 
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
-            <img src="lib/img/about.jpg" class="img-fluid" alt="">
+            <img src="lib/img/about.jpg" class="img-fluid" alt="About Us">
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right" data-aos-delay="100">
-            <h3>Empowering Your Business with Insightful Solutions</h3>
+            <h3>Empowering You with Insightful Consultancy</h3>
             <p class="fst-italic">
-              At InsightSerenity, we specialize in delivering premier IT and data science consulting services alongside life literacy coaching rooted in biblical principles.
+              At InsightSerenity, we are dedicated to providing top-tier consultancy services, leveraging our deep expertise in IT, data science, and life literacy coaching. Established by Emmanuel Oyemosu in 2023, our firm is built on the principles of excellence, integrity, and impactful guidance.
             </p>
             <ul>
-              <li><i class="ri-check-double-line"></i> Customized data analysis and insights.</li>
-              <li><i class="ri-check-double-line"></i> IT consulting and systems integration.</li>
-              <li><i class="ri-check-double-line"></i> Life literacy coaching for personal and professional growth.</li>
+              <li><i class="ri-check-double-line"></i> Expert IT and data science consulting to drive your business forward.</li>
+              <li><i class="ri-check-double-line"></i> Life literacy coaching rooted in biblical principles for personal and professional growth.</li>
+              <li><i class="ri-check-double-line"></i> Commitment to delivering tailored solutions and unparalleled support to our clients.</li>
             </ul>
             <p>
-              Our mission is to provide transformative solutions that empower businesses and individuals to achieve their goals with integrity and excellence.
+              With a mission to empower individuals and organizations alike, InsightSerenity blends cutting-edge technology with deep-seated values to offer solutions that are not only effective but also transformative. Join us on a journey of insight, serenity, and success.
             </p>
           </div>
         </div>
 
       </div>
-    </section><!-- End About Section -->
+    </section>
+    <!-- End About Section -->
 
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
       <div class="container" data-aos="fade-up">
 
+          <div class="section-title">
+              <h2>Our Powerful Services</h2>
+              <p>Transform Your Life and Business with Our Expertise</p>
+          </div>
+
+          <p class="fst-italic">
+              At InsightSerenity, we offer a range of services designed to empower you with the tools and knowledge needed for personal and professional success. Our consultancy is not just about providing solutions; it's about transforming potential into reality. With our comprehensive approach, we ensure that every client receives tailored, impactful guidance that drives meaningful results.
+          </p>
+          <p>
+              Whether you're looking to enhance your IT infrastructure, harness the power of data science, or seek life literacy coaching rooted in biblical principles, our team is dedicated to delivering excellence. Our services are designed to meet your unique needs, helping you navigate challenges, seize opportunities, and achieve your goals with confidence and clarity.
+          </p>
+
+          <% if (services.length > 0) { %>
+              <div class="row">
+                  <% services.forEach(service => { %>
+                      <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="<%= (services.indexOf(service) + 1) * 100 %>">
+                          <div class="icon-box">
+                              <div class="icon"><i class="bx bx-briefcase"></i></div>
+                              <h4><a href="/insightserenity/service/<%= service._id %>"><%= service.name %></a></h4>
+                              <p><%= service.description || 'No description available' %></p>
+                              <p><strong>Duration:</strong> <%= service.duration %> minutes</p>
+                              <p><strong>Price:</strong> $<%= service.price.toFixed(2) %></p>
+                              <p><strong>Category:</strong> <%= service.category %></p>
+                          </div>
+                      </div>
+                  <% }) %>
+              </div>
+              <% if (services.length > 5) { %>
+                <div class="text-end mt-4">
+                    <a href="/insightserenity/service" class="btn btn-yellow">View More Services</a>
+                </div>
+            <% } %>
+          <% } else { %>
+              <div class="alert alert-info text-center">
+                  <h4>No services available at the moment</h4>
+                  <p>We are working hard to add more services soon. Please check back later!</p>
+              </div>
+          <% } %>
+
+      </div>
+    </section>
+    <!-- End Services Section -->
+
+    <!-- ======= Team Section ======= -->
+    <section id="team" class="team">
+      <div class="container" data-aos="fade-up">
+
         <div class="section-title">
-          <h2>Services</h2>
-          <p>Explore Our Services</p>
+          <h2>Team</h2>
+          <p>Check our Team</p>
         </div>
 
         <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">IT Consulting</a></h4>
-              <p>Providing strategic IT consulting to enhance your business operations.</p>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member" data-aos="fade-up" data-aos-delay="100">
+              <div class="member-img">
+                <img src="lib/img/team/ceo.jpeg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Emmanuel Oyemosu</h4>
+                <span>Chief Executive Officer</span>
+              </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Data Science Solutions</a></h4>
-              <p>Transforming data into actionable insights for better decision-making.</p>
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member" data-aos="fade-up" data-aos-delay="200">
+              <div class="member-img">
+                <img src="lib/img/team/team-2.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Sarah Jhonson</h4>
+                <span>Product Manager</span>
+              </div>
             </div>
           </div>
 
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Life Literacy Coaching</a></h4>
-              <p>Empowering individuals with the knowledge and skills for personal growth.</p>
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member" data-aos="fade-up" data-aos-delay="300">
+              <div class="member-img">
+                <img src="lib/img/team/team-3.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>William Anderson</h4>
+                <span>CTO</span>
+              </div>
             </div>
           </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member" data-aos="fade-up" data-aos-delay="400">
+              <div class="member-img">
+                <img src="lib/img/team/team-4.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Amanda Jepson</h4>
+                <span>Accountant</span>
+              </div>
+            </div>
+          </div>
+
         </div>
 
       </div>
-    </section><!-- End Services Section -->
+    </section>
+    <!-- End Team Section -->
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Book a Consultation</h2>
-          <p>Schedule your session with InsightSerenity</p>
+          <h2>Contact</h2>
+          <p>Contact Us</p>
         </div>
 
         <div>
@@ -116,19 +234,19 @@
               <div class="address">
                 <i class="bi bi-geo-alt"></i>
                 <h4>Location:</h4>
-                <p>123 Main Street, Houston, TX</p>
+                <p>A108 Adam Street, New York, NY 535022</p>
               </div>
 
               <div class="email">
                 <i class="bi bi-envelope"></i>
                 <h4>Email:</h4>
-                <p>info@insightserenity.com</p>
+                <p><a href="mailto:Emmanuel.ao@outlook.com">Emmanuel.ao@outlook.com</a></p>
               </div>
 
               <div class="phone">
                 <i class="bi bi-phone"></i>
                 <h4>Call:</h4>
-                <p>+1 346 383 9529</p>
+                <p><a href="tel:+13463839529">+1 346 383 9529</a></p>
               </div>
 
             </div>
@@ -136,31 +254,37 @@
           </div>
 
           <div class="col-lg-8 mt-5 mt-lg-0">
-            <form action="/contact" method="post" class="php-email-form">
-              <div class="row gy-4">
-                <div class="col-md-6">
+
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
                   <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 form-group mt-3 mt-md-0">
                   <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
                 </div>
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-                </div>
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
-                </div>
-                <div class="col-md-12 text-center">
-                  <button type="submit">Send Message</button>
-                </div>
               </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
             </form>
+
           </div>
 
         </div>
 
       </div>
-    </section><!-- End Contact Section -->
+    </section>
+    <!-- End Contact Section -->
 </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

@@ -74,7 +74,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use(async (req, res, next) => {
-    const services = await Service.find().limit(5);
+    const services = await Service.find().limit(6);
     res.locals.services = services;
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');

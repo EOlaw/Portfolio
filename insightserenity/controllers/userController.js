@@ -192,7 +192,7 @@ const userControllers = {
                 await Client.findOneAndDelete({ userId });
             }
 
-            res.redirect('/users');
+            res.redirect('/insightserenity/');
         } catch (error) {
             res.status(400).json({ error });
         }

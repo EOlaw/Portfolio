@@ -7,9 +7,6 @@ const homeController = {
     about: (req, res) => {
         res.render('home/about')
     },
-    portfolio: (req, res) => {
-        res.render('home/portfolio')
-    },
     team: (req, res) => {
         res.render('home/team')
     },
