@@ -15,6 +15,12 @@ const homeController = {
     },
     contact: (req, res) => {
         res.render('home/contact')
+    },
+    terms: (req, res) => {
+        res.render('home/terms')
+    },
+    privacy: (req, res) => {
+        res.render('home/privacy')
     }
 }
 

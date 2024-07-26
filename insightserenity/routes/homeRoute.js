@@ -12,5 +12,9 @@ router.route('/team')
     .get(homeControllers.team)
 router.route('/contact')
     .get(homeControllers.contact)
+router.route('/terms')
+    .get(homeControllers.terms)
+router.route('/privacy')
+    .get(homeControllers.privacy)
 
 module.exports = router;

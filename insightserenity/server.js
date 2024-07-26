@@ -11,6 +11,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
 const User = require('./models/userModel');
+const Service = require('./models/serviceModel');
 // const Consultant = require('./models/consultantModel');
 // const Client = require('./models/clientModel');
 
@@ -73,6 +74,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use(async (req, res, next) => {
+    const services = await Service.find().limit(5);
+    res.locals.services = services;
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
