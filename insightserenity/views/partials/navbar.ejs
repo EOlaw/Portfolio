@@ -11,7 +11,7 @@
         <% if (currentUser) { %>
           <% if (currentUser.role === 'consultant') { %>
             <li><a href="/insightserenity/consultant/" class="nav-link scrollto">Consultant Profile</a></li>
-            <li class="dropdown"><a href="#"><span>Welcome to DF, <%= currentUser.firstname %></span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href="#"><span>Welcome to Insightserenity, <%= currentUser.firstname %> <%= currentUser.lastname %></span> <i class="bi bi-chevron-down"></i></a>
               <ul>
                 <li><a href="#">Profile</a></li>
                 <li class="dropdown"><a href="#"><span>Help & Support</span> <i class="bi bi-chevron-right"></i></a>
@@ -28,7 +28,7 @@
             </li>
           <% } else if (currentUser.role === 'client') { %>
             <li><a href="/insightserenity/client/" class="nav-link scrollto">Client Profile</a></li>
-            <li class="dropdown"><a href="#"><span>Welcome to DF, <%= currentUser.firstname %></span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href="#"><span>Welcome to Insightserenity, <%= currentUser.firstname %> <%= currentUser.lastname %></span> <i class="bi bi-chevron-down"></i></a>
               <ul>
                 <li><a href="#">Profile</a></li>
                 <li class="dropdown"><a href="#"><span>Help & Support</span> <i class="bi bi-chevron-right"></i></a>
@@ -44,7 +44,6 @@
               </ul>
             </li>
           <% } %>
-          <a href="/insightserenity/user/logout" class="text-danger">Logout</a>
         <% } %>
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
